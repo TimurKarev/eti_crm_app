@@ -1,3 +1,4 @@
+import 'package:eti_crm_app/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -5,13 +6,25 @@ class LoginPage extends ConsumerWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  void _login(
+      {@required BuildContext context,
+      @required String email,
+      @required String password}) {
+    context
+        .read(authProvider)
+        .signInEmailAndPassword(email: email, password: password);
+  }
+
   @override
   Widget build(BuildContext context, watch) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Войти используя пароль'),
         actions: <Widget>[
-          FlatButton(onPressed: () {}, child: Text('Зарегестрироваться')),
+          FlatButton(
+            onPressed: () {},
+            child: Text('Зарегестрироваться'),
+          ),
         ],
       ),
       body: Padding(
@@ -40,14 +53,18 @@ class LoginPage extends ConsumerWidget {
               height: 40.0,
               child: ElevatedButton(
                 onPressed: () {
-                  print('${_emailController.text}');
+                  _login(
+                      context: context,
+                      email: _emailController.text,
+                      password: _passwordController.text);
                 },
                 child: Text('Войти'),
               ),
             ),
             SizedBox(height: 30.0),
             FlatButton(
-              onPressed: () {},
+              onPressed: () {
+              },
               child: Text('Нет пароля? Зарегестрироваться'),
             ),
           ],
