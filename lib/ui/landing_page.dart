@@ -9,7 +9,7 @@ class LandingPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     AsyncValue<User> asyncAuth = watch(authStateChangeProvider);
-    final CloudFirebaseAuth auth = watch(authProvider);
+
     return asyncAuth.when(
         data: (user) {
           if (user == null) {

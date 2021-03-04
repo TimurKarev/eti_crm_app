@@ -2,8 +2,57 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginPage extends ConsumerWidget {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context, watch) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Войти используя пароль'),
+        actions: <Widget>[
+          FlatButton(onPressed: () {}, child: Text('Зарегестрироваться')),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(height: 60.0),
+            Text('Войти в программу', textAlign: TextAlign.center),
+            SizedBox(height: 20.0),
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                labelText: 'Почта',
+              ),
+            ),
+            TextField(
+              controller: _passwordController,
+              decoration: InputDecoration(
+                labelText: 'Пароль',
+              ),
+            ),
+            SizedBox(height: 30.0),
+            SizedBox(
+              height: 40.0,
+              child: ElevatedButton(
+                onPressed: () {
+                  print('${_emailController.text}');
+                },
+                child: Text('Войти'),
+              ),
+            ),
+            SizedBox(height: 30.0),
+            FlatButton(
+              onPressed: () {},
+              child: Text('Нет пароля? Зарегестрироваться'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

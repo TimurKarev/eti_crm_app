@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
 class CloudFirebaseAuth {
   final _auth = FirebaseAuth.instance;
@@ -8,5 +9,25 @@ class CloudFirebaseAuth {
   Future<User> signInAnonymously() async {
     final userCredential = await _auth.signInAnonymously();
     return userCredential.user;
+  }
+
+  Future<User> signInEmailAndPassword(
+      {@required String email, @required String password}) async {
+    final userCredential = await _auth.signInWithEmailAndPassword(
+        email: email, password: password);
+    return userCredential.user;
+  }
+
+  Future<void> createUserWithEmailAndPassword(
+      String email, String password) async {
+    final userCredential = await _auth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    return userCredential.user;
+  }
+
+  Future<void> signOut() async {
+    await _auth.signOut();
   }
 }
