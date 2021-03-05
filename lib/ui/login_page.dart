@@ -11,8 +11,8 @@ class LoginPage extends ConsumerWidget {
       @required String email,
       @required String password}) {
     context
-        .read(authProvider)
-        .signInEmailAndPassword(email: email, password: password);
+        .read(userViewModelProvider)
+        .signIn(email: email, password: password);
   }
 
   @override

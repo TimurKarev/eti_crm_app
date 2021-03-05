@@ -1,4 +1,3 @@
-import 'package:eti_crm_app/models/user_model.dart';
 import 'package:eti_crm_app/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +12,7 @@ class HomePage extends ConsumerWidget {
         actions: <Widget>[
           FlatButton(
             onPressed: () {
-              context.read(authProvider).signOut();
+              context.read(userViewModelProvider).signOut();
             },
             child: Text('Выход'),
           )

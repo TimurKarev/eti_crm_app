@@ -8,17 +8,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 class LandingPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    AsyncValue<User> asyncAuth = watch(authStateChangeProvider);
+    final userViewModel = watch(userViewModelProvider);
+    Widget widget = CircularProgressIndicator();
+    if (userViewModel.userModel.uid == null) {
+      widget = LoginPage();
+    } else {
+      widget = HomePage();
+    }
 
-    return asyncAuth.when(
-        data: (user) {
-          if (user == null) {
-            return LoginPage();
-          } else {
-            return HomePage();
-          }
-        },
-        loading: () => CircularProgressIndicator(),
-        error: (e, stack) => Text("${e.toString()}"));
+    return widget;
   }
 }
