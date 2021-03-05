@@ -11,7 +11,7 @@ class HomePage extends ConsumerWidget {
       appBar: AppBar(
         title: Text("Домашняя страница"),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             onPressed: () {
               context.read(userViewModelProvider).signOut();
             },
@@ -21,8 +21,8 @@ class HomePage extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          Text('${userViewModel.userModel.email}'),
-          FlatButton(
+          userViewModel.userModel.roles.isEmpty ? Container() : Text('${userViewModel.userModel.roles[0]}'),
+          TextButton(
             onPressed: () {
               _do(context.read(userViewModelProvider).userModel.uid);
             },
@@ -34,8 +34,13 @@ class HomePage extends ConsumerWidget {
   }
 
   void _do(String uid) async {
-    final DocumentReference reference = FirebaseFirestore.instance.doc('/users/$uid');
-    final snapshot = await reference.get();
-    print(snapshot.data().toString());
+    // final DocumentReference reference = FirebaseFirestore.instance.doc('/users/$uid');
+    //
+    // try {
+    //   final snapshot = await reference.get();
+    //   print(snapshot.data().toString());
+    // } catch (e) {
+    //   print(e.toString());
+    // }
   }
 }
