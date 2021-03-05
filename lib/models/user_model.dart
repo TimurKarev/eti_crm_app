@@ -8,7 +8,7 @@ class UserModel with ChangeNotifier{
   String uid;
   List<String> roles;
 
-  void update(User user) {
+  void updateFromUser(User user) {
     uid = user?.uid;
     email = user?.email;
     notifyListeners();
