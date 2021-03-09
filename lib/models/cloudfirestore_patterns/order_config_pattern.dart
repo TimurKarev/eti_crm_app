@@ -22,11 +22,10 @@ class OrderConfigPattern {
         'value': '2',
       },
     ],
-    'substation_type_variants': [
-      {
-        'label': 'БКТП',
-        'index': 'bktp',
-      }
-    ]
+    'choice_variants': {
+      'substation_type_variants': [
+        {'label': 'БКТП', 'value': 'bktp'}
+      ]
+    },
   };
 }

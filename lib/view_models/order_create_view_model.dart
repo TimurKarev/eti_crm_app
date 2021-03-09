@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final orderCreateViewModelProvider =
     Provider((ref) => OrderCreateViewModel(read: ref.read));
 
-final orderCreteDataProvider = FutureProvider<Widget>((ref) async {
+final orderCreteDataProvider = FutureProvider<OrderCreateModel>((ref) async {
   final vm = ref.watch(orderCreateViewModelProvider);
   return vm.data;
 });
@@ -18,9 +18,24 @@ class OrderCreateViewModel {
 
   Map<String, dynamic> _model = {};
 
-  Future<Widget> get data async {
+  Future<OrderCreateModel> get data async {
     _model = await read(cloudFirebaseServiceProvider)
         .getDocument(path: FirestorePath.order_create_form());
-    return Text(_model.toString());
+    return OrderCreateModel(_model);
   }
+}
+
+class OrderCreateModel {
+  final Map<String, dynamic> _model;
+
+  String get pageTitle => _model['title'];
+
+  List<dynamic> get pagePoints => _model['points'];
+
+  List<dynamic> getChoiceVariant(String pointIndex) {
+     return _model['choice_variants'][pointIndex];
+
+  }
+
+  OrderCreateModel(this._model);
 }
