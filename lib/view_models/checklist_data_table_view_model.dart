@@ -1,3 +1,4 @@
+import 'package:eti_crm_app/models/check_list_data_table_model.dart';
 import 'package:eti_crm_app/providers/providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,30 +33,4 @@ class ChecklistDataTableViewModel {
   }
 }
 
-class ChecklistDataTableModel {
-  final List<String> columns = [
-    "Заказ",
-    "Стройка",
-    "Электрика",
-    "Телемеханика",
-    "Лаборатория"
-  ];
-  final List<String> columnIndexes = [
-    "bm_checklist",
-    "el_checklist",
-    "tm_checklist",
-    "lab_checklist"
-  ];
-  List<List<String>> rows = [];
 
-  ChecklistDataTableModel(Map<String, List<String>> data) {
-    final ordersList = data.keys;
-    ordersList.forEach((order) {
-      List<String> row = [order];
-      columnIndexes.forEach((element) {
-        data[order].contains(element) ? row.add('просмотр') : row.add('создать');
-      });
-      rows.add(row);
-    });
-  }
-}

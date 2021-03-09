@@ -1,5 +1,6 @@
+import 'package:eti_crm_app/models/check_list_data_table_model.dart';
 import 'package:eti_crm_app/providers/providers.dart';
-import 'package:eti_crm_app/view_models/checklist_data_table_view_model.dart';
+import 'package:eti_crm_app/ui/reusable_widgets/cell_buttons_data_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -29,13 +30,7 @@ class DataTablePage extends ConsumerWidget {
 
   _getDataTable(ChecklistDataTableModel model) {
     return SingleChildScrollView(
-      child: DataTable(
-        columns: [for (var col in model.columns) DataColumn(label: Text(col))],
-        rows: [ for (var row in model.rows)
-          DataRow(cells: [for (var cell in row)  DataCell(Text(cell.toString())),
-          ]),
-        ],
-      ),
+      child: CellButtonDataTable(model: model),
     );
   }
 }
