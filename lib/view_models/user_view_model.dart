@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eti_crm_app/models/user_model.dart';
 import 'package:eti_crm_app/services/auth.dart';
+import 'package:eti_crm_app/services/firestore_path.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,14 +20,15 @@ class UserViewModel extends ChangeNotifier {
   UserModel _userModel = UserModel();
 
   UserViewModel({@required this.ref}) {
-    authStateChangeListener();
+    _authStateChangeListener();
   }
 
   UserModel get userModel => _userModel;
   String get uid => _userModel.uid;
   String get email => _userModel.email;
 
-  void authStateChangeListener() {
+  //TODO: Переделать в поток и убрать разницу во времени и бесполезные обновления
+  void _authStateChangeListener() {
     AsyncValue<User> userStream = ref.watch(authStateChangeProvider);
     userStream.when(
       data: (user) async {
@@ -52,13 +54,14 @@ class UserViewModel extends ChangeNotifier {
     ref.read(authProvider).signInEmailAndPassword(email: email, password: password);
   }
 
+  //TODO: Нужен серьезный рефакторинг
   Future<DocumentSnapshot> _getUserPrefFromDataBase() async {
-    final DocumentReference reference = FirebaseFirestore.instance.doc('/users/$uid');
+    final DocumentReference reference = FirebaseFirestore.instance.doc(FirestorePath.user(uid));
     DocumentSnapshot snapshot;
     try {
       snapshot = await reference.get();
       if(snapshot.data() == null) {
-        await reference.set({'security_group' : ['viewer']});
+        await reference.set({'security_group' : ['not_assigned']});
         snapshot = await reference.get();
         if(snapshot.data() == null) {
           throw('Can not read user info from database');

@@ -1,12 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eti_crm_app/providers/providers.dart';
+import 'package:eti_crm_app/services/cloud_firebase_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomePage extends ConsumerWidget {
+  //final arg = ArgumentData(collectionGroup: 'Checklists', field: 'order');
   @override
   Widget build(BuildContext context, watch) {
     final userViewModel = watch(userViewModelProvider);
+    // AsyncValue<Map<String, List<String>>> val = watch(
+    //     cloudFirebaseServiceChecklistTableProvider(arg
+    //         ));
     return Scaffold(
       appBar: AppBar(
         title: Text("Домашняя страница"),
@@ -21,7 +25,18 @@ class HomePage extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          userViewModel.userModel.roles.isEmpty ? Container() : Text('${userViewModel.userModel.roles[0]}'),
+          userViewModel.userModel.roles.isEmpty
+              ? Container()
+              : Text('${userViewModel.userModel.roles.toString()}'),
+          // val.when(
+          //     data: (data) {
+          //       return Text(data.toString());
+          //     },
+          //     loading: () => CircularProgressIndicator(),
+          //     error: (e, s) {
+          //       print(e.toString());
+          //       return Text('Error');
+          //     }),
           TextButton(
             onPressed: () {
               _do(context.read(userViewModelProvider).userModel.uid);
@@ -34,13 +49,5 @@ class HomePage extends ConsumerWidget {
   }
 
   void _do(String uid) async {
-    // final DocumentReference reference = FirebaseFirestore.instance.doc('/users/$uid');
-    //
-    // try {
-    //   final snapshot = await reference.get();
-    //   print(snapshot.data().toString());
-    // } catch (e) {
-    //   print(e.toString());
-    // }
   }
 }

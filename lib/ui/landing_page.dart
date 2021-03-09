@@ -4,6 +4,8 @@ import 'package:eti_crm_app/ui/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'checklists/data_table_page.dart';
+
 
 class LandingPage extends ConsumerWidget {
   @override
@@ -13,7 +15,7 @@ class LandingPage extends ConsumerWidget {
     if (userViewModel.userModel.uid == null) {
       widget = LoginPage();
     } else {
-      widget = HomePage();
+      widget = DataTablePage();
     }
 
     return widget;
