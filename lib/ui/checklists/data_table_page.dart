@@ -4,6 +4,8 @@ import 'package:eti_crm_app/ui/reusable_widgets/cell_buttons_data_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../order_create_page.dart';
+
 class DataTablePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, watch) {
@@ -21,7 +23,14 @@ class DataTablePage extends ConsumerWidget {
         false ? Text('Пустой чеклиск') : Container(),
       ]),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) {
+              return OrderCreatePage();
+            }),
+          );
+        },
         child: Icon(Icons.add),
         tooltip: 'Создать новый заказ',
       ),

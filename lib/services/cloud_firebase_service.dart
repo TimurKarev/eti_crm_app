@@ -24,4 +24,20 @@ class CloudFirebaseService {
       return result;
     });
   }
+
+  Future<void> setData({
+    @required String path,
+    @required Map<String, dynamic> data,
+    bool merge = false,
+  }) async {
+    final reference = FirebaseFirestore.instance.doc(path);
+    await reference.set(data);
+  }
+
+  Future<Map<String, dynamic>> getDocument({String path}) async {
+    final reference = FirebaseFirestore.instance.doc(path).get();
+    return reference.then((value) => value.data());
+  }
+
 }
+

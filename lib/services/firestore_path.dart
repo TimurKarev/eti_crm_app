@@ -8,5 +8,5 @@ class FirestorePath {
   static String order_config() => Orders() + '/order_config';
 
   static String order_create_form() =>
-      Orders() + '/' + order_config() + '/Forms/order_create_form';
+      order_config() + '/Forms/order_create_form';
 }

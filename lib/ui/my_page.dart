@@ -1,10 +1,11 @@
+import 'package:eti_crm_app/models/cloudfirestore_patterns/order_config_pattern.dart';
 import 'package:eti_crm_app/providers/providers.dart';
 import 'package:eti_crm_app/services/cloud_firebase_service.dart';
+import 'package:eti_crm_app/services/firestore_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends ConsumerWidget {
-  //final arg = ArgumentData(collectionGroup: 'Checklists', field: 'order');
+class MyPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, watch) {
     final userViewModel = watch(userViewModelProvider);
@@ -28,26 +29,20 @@ class HomePage extends ConsumerWidget {
           userViewModel.userModel.roles.isEmpty
               ? Container()
               : Text('${userViewModel.userModel.roles.toString()}'),
-          // val.when(
-          //     data: (data) {
-          //       return Text(data.toString());
-          //     },
-          //     loading: () => CircularProgressIndicator(),
-          //     error: (e, s) {
-          //       print(e.toString());
-          //       return Text('Error');
-          //     }),
           TextButton(
             onPressed: () {
-              _do(context.read(userViewModelProvider).userModel.uid);
+              _setDocument(context);
             },
-            child: Text('Do'),
+            child: Text('setDocument'),
           ),
         ],
       ),
     );
   }
 
-  void _do(String uid) async {
+  void _setDocument(BuildContext context) async {
+    context.read(cloudFirebaseServiceProvider).setData(
+        path: FirestorePath.order_create_form(),
+        data: OrderConfigPattern.orderConfig);
   }
 }
