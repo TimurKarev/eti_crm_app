@@ -1,40 +1,33 @@
-import 'package:eti_crm_app/services/index_value_implementator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class FormWidget extends StatefulWidget with ValueIndexImplementer {
-
+class IntegerFormWidget extends StatelessWidget {
   final Map<String, dynamic> point;
+  final int sectionIndex;
+  final int pointIndex;
+  final void Function(int, int, String) updateModelCallback;
+
   final TextEditingController _controller = TextEditingController();
 
-  FormWidget({Key key, this.point}) : super(key: key){
+  IntegerFormWidget({
+    Key key,
+    this.point,
+    this.sectionIndex,
+    this.pointIndex,
+    this.updateModelCallback,
+  }) : super(key: key) {
     _controller.text = point['value'];
   }
 
-  @override
-  _FormWidgetState createState() => _FormWidgetState();
-
-  @override
-  String getIndex() {
-    return point['index'];
-  }
-
-  @override
-  String getValue() {
-    return _controller.text;
-  }
-}
-
-class _FormWidgetState extends State<FormWidget> {
-  @override
   Widget build(BuildContext context) {
     return Container(
       child: Row(children: [
-        Text(widget.point['label']),
+        Text(point['label']),
         SizedBox(
           width: 60.0,
           child: TextFormField(
-            controller: widget._controller,
+            onChanged: (value) => updateModelCallback(sectionIndex, pointIndex, value),
+            controller: _controller,
             keyboardType: TextInputType.number,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             //initialValue: widget.point['value'],

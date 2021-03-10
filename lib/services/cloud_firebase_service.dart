@@ -39,5 +39,9 @@ class CloudFirebaseService {
     return reference.then((value) => value.data());
   }
 
+  Future<void> setDocument({String path, Map<String, dynamic> data}) async {
+    await FirebaseFirestore.instance.doc(path).set(data);
+  }
+
 }
 

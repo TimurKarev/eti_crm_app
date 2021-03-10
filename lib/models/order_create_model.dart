@@ -1,7 +1,11 @@
 class OrderCreateModel {
   final Map<String, dynamic> _model;
 
+  Map<String, dynamic> get data => _model;
+
   String get pageTitle => _model['headers']['title'];
+
+  String get orderName => _model['sections'][0]['points'][0]['value'];
 
   int get sectionsNumber => _model['sections'].length;
 
@@ -14,11 +18,11 @@ class OrderCreateModel {
   Map<String, dynamic> getSectionPointByIndex(int indSec, int indPoint) {
     Map<String, dynamic> result =
         _model['sections'][indSec]['points'][indPoint];
-    if (result['type'] == 'choice') {
-      result['choices'] =
-          getChoiceVariantsByStringIndex(result['variants_index']);
-    }
     return result;
+  }
+
+  void setPointValueByIndex(int indSec, int indPoint, String value) {
+    _model['sections'][indSec]['points'][indPoint]['value'] = value;
   }
 
   List<dynamic> getChoiceVariantsByStringIndex(String pointIndex) {

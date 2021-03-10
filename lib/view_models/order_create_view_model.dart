@@ -28,6 +28,11 @@ class OrderCreateViewModel {
     return true;
   }
 
+  Future<void> _saveDocument() async {
+    await read(cloudFirebaseServiceProvider).setDocument(
+        path: FirestorePath.order(_model.orderName), data: _model.data);
+  }
+
   Widget get page {
     return Scaffold(
       appBar: AppBar(
@@ -35,7 +40,7 @@ class OrderCreateViewModel {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save),
-        onPressed: () {},
+        onPressed: _saveDocument,
       ),
       body: _buildBody(),
     );
@@ -52,45 +57,40 @@ class OrderCreateViewModel {
           pIndex++) {
         final point = _model.getSectionPointByIndex(sIndex, pIndex);
         if (point['type'] == 'integer') {
-          final w = FormWidget(point: point);
-          result.add(w);
-          print(w.getValue());
+          result.add(IntegerFormWidget(
+              point: point,
+              sectionIndex: sIndex,
+              pointIndex: pIndex,
+              updateModelCallback: _update));
         }
         if (point['type'] == 'choice') {
-          result.add(_createChoiceFiled(point));
+          final variants =
+              _model.getChoiceVariantsByStringIndex(point['variants_index']);
+          result.add(_createChoiceFiled(point, variants));
         }
       }
     }
     return Container(child: Column(children: result));
   }
 
-  Widget _createIntegerFiled(Map<String, dynamic> point) {
-    return Container(
-      child: Row(children: [
-        Text(point['label']),
-        SizedBox(
-          width: 60.0,
-          child: TextFormField(
-            keyboardType: TextInputType.number,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            initialValue: point['value'],
-          ),
-        ),
-      ]),
-    );
+  void _update(int s, int c, String value) {
+    _model.setPointValueByIndex(s, c, value);
+    print(_model.getSectionPointByIndex(s, c));
   }
 
-  Widget _createChoiceFiled(Map<String, dynamic> point) {
+  Widget _createChoiceFiled(
+      Map<String, dynamic> point, List<dynamic> variants) {
     return Row(
       children: [
         Text(point['label']),
-        _createDropdownButton(point),
+        _createDropdownButton(point, variants),
       ],
     );
   }
 
-  Widget _createDropdownButton(Map<String, dynamic> point) {
-    final variants = point['choices'];
+  Widget _createDropdownButton(
+      Map<String, dynamic> point, List<dynamic> variants) {
+    //final variants = point['choices'];
     List<DropdownMenuItem> menuItems = [];
     variants.forEach((variant) {
       final menuItem = DropdownMenuItem<String>(

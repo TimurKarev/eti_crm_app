@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 
 class ChecklistDataTableModel {
   final List<String> columns = [
@@ -18,6 +17,7 @@ class ChecklistDataTableModel {
 
   ChecklistDataTableModel(Map<String, List<String>> data) {
     final ordersList = data.keys;
+    print(data.keys.toString());
     ordersList.forEach((order) {
       List<DataTableCellModel> row = [
         DataTableCellModel(

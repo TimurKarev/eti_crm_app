@@ -44,7 +44,8 @@ class OrderConfigPattern {
       {
         'choice_variants': {
           'substation_type_variants': [
-            {'label': 'БКТП', 'value': 'bktp'}
+            {'label': 'БКТП', 'value': 'bktp'},
+            {'label': 'БКРТП', 'value': 'bkrtp'}
           ]
         },
       }
