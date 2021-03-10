@@ -22,7 +22,7 @@ class ChecklistDataTableViewModel {
         .collectionGroupStream(
             collectionGroup: arguments[0], field: arguments[1]);
     return groupMap.map((data) {
-      print(data.toString());
+      //print(data.toString());
       return ChecklistDataTableModel(data);
     });
     // groupMap.map(data: (data) => print(data.toString()),

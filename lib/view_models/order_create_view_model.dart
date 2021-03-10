@@ -1,3 +1,4 @@
+import 'package:eti_crm_app/models/order_create_model.dart';
 import 'package:eti_crm_app/providers/providers.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,17 +26,4 @@ class OrderCreateViewModel {
   }
 }
 
-class OrderCreateModel {
-  final Map<String, dynamic> _model;
 
-  String get pageTitle => _model['title'];
-
-  List<dynamic> get pagePoints => _model['points'];
-
-  List<dynamic> getChoiceVariant(String pointIndex) {
-     return _model['choice_variants'][pointIndex];
-
-  }
-
-  OrderCreateModel(this._model);
-}

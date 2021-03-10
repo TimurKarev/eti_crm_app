@@ -1,31 +1,47 @@
 class OrderConfigPattern {
   static final orderConfig = {
-    'title': 'Конфигурация нового заказа',
-    'points': [
+    'headers': {
+      'title': 'Конфигурация нового заказа',
+    },
+    'sections': [
       {
-        'label': 'Тип подстанции',
-        'index': 'substation_type',
-        'type': 'choice',
-        'variants_index': 'substation_type_variants',
-        'value': '0',
+        'label': 'Общие настройки',
+        'points': [
+          {
+            'label': 'Тип подстанции',
+            'index': 'substation_type',
+            'type': 'choice',
+            'variants_index': 'substation_type_variants',
+            'value': 'bktp',
+          },
+        ]
       },
       {
-        'label': 'Количество нижних модулей',
-        'index': 'building_bottom_module_num',
-        'type': 'integer',
-        'value': '2',
-      },
-      {
-        'label': 'Количество верхних модулей',
-        'index': 'building_top_module_num',
-        'type': 'integer',
-        'value': '2',
+        'label': 'Строительная часть',
+        'points': [
+          {
+            'label': 'Количество нижних модулей',
+            'index': 'building_bottom_module_num',
+            'type': 'integer',
+            'value': '2',
+          },
+          {
+            'label': 'Количество верхних модулей',
+            'index': 'building_top_module_num',
+            'type': 'integer',
+            'value': '2',
+          },
+        ],
       },
     ],
-    'choice_variants': {
-      'substation_type_variants': [
-        {'label': 'БКТП', 'value': 'bktp'}
-      ]
-    },
+    'config': [
+      {
+        'choice_variants': {
+          'substation_type_variants': [
+            {'label': 'БКТП', 'value': 'bktp'}
+          ]
+        },
+      }
+    ],
   };
 }

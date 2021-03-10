@@ -14,7 +14,7 @@ class MyPage extends ConsumerWidget {
     //         ));
     return Scaffold(
       appBar: AppBar(
-        title: Text("Домашняя страница"),
+        title: Text("Административная страница"),
         actions: <Widget>[
           TextButton(
             onPressed: () {
