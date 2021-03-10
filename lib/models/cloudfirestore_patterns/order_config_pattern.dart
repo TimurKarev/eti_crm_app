@@ -8,6 +8,12 @@ class OrderConfigPattern {
         'label': 'Общие настройки',
         'points': [
           {
+            'label': 'Номер Заказа',
+            'index': 'order_number',
+            'type': 'integer',
+            'value': '0',
+          },
+          {
             'label': 'Тип подстанции',
             'index': 'substation_type',
             'type': 'choice',
