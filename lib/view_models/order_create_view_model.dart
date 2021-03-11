@@ -74,7 +74,7 @@ class OrderCreateViewModel {
 
   void _update(int s, int c, String value) {
     _model.setPointValueByIndex(s, c, value);
-    print(_model.getSectionPointByIndex(s, c));
+    //print(_model.getSectionPointByIndex(s, c));
   }
 
   Widget _createChoiceFiled(

@@ -12,6 +12,7 @@ class DataTablePage extends ConsumerWidget {
   Widget build(BuildContext context, watch) {
     AsyncValue<ChecklistDataTableModel> dataTableData =
         watch(checklistTableDataStream);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Список Заказов'),

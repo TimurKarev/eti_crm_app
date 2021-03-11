@@ -1,6 +1,5 @@
 import 'package:eti_crm_app/models/cloudfirestore_patterns/order_config_pattern.dart';
 import 'package:eti_crm_app/providers/providers.dart';
-import 'package:eti_crm_app/services/cloud_firebase_service.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +11,8 @@ class MyPage extends ConsumerWidget {
     // AsyncValue<Map<String, List<String>>> val = watch(
     //     cloudFirebaseServiceChecklistTableProvider(arg
     //         ));
+    //final AsyncValue<List<String>> asyncOrderList = watch(orderListStreamProvider);
+   // asyncOrderList.whenData((value) => print(value.toString()));
     return Scaffold(
       appBar: AppBar(
         title: Text("Административная страница"),

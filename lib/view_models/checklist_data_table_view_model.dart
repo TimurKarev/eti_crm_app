@@ -15,13 +15,13 @@ class ChecklistDataTableViewModel {
         .collectionGroupStream(
             collectionGroup: arguments[0], field: arguments[1]);
     return groupMap.map((data) {
-      //print(data.toString());
+      AsyncValue<List<String>> orderList = ref.watch(orderListStreamProvider);
+      orderList.whenData((orders) => {orders.forEach((order) {
+        if(!data.containsKey(order)){
+          data[order] = [];
+        }
+      })});
       return ChecklistDataTableModel(data);
     });
-    // groupMap.map(data: (data) => print(data.toString()),
-    //     loading: () => print('loading'),
-    //     error: (e, r) => print(e.toString()));
-
-    // });
   }
 }
