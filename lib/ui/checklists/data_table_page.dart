@@ -39,12 +39,13 @@ class DataTablePage extends ConsumerWidget {
       ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) {
-              return OrderCreatePage();
-            }),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) {
+          //     return OrderCreatePage();
+          //   }),
+          // );
+          Navigator.pushNamed(context, '/create-order');
         },
         child: Icon(Icons.add),
         tooltip: 'Создать новый заказ',

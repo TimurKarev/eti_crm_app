@@ -39,7 +39,7 @@ class OrderCreateViewModel {
     }
   }
 
-  Future<void> _saveDocument() async {
+  Future<void> saveDocument() async {
     bool isOrderExist = await _isOrderExist();
     if (!isOrderExist) {
       await read(cloudFirebaseServiceProvider).setDocument(
@@ -48,16 +48,7 @@ class OrderCreateViewModel {
   }
 
   Widget get page {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_model.pageTitle),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.save),
-        onPressed: _saveDocument,
-      ),
-      body: _buildBody(),
-    );
+    return _buildBody();
   }
 
   Widget _buildBody() {

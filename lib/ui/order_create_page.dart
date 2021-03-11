@@ -7,10 +7,29 @@ class OrderCreatePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, watch) {
     final asyncData = watch(orderCreteDataProvider);
-    return asyncData.when(
-        data: (_) => context.read(orderCreateViewModelProvider).page,
-        loading: () => CircularProgressIndicator(),
-        // TODO: create widget for loading indicator
-        error: (e, _) => Text(e.toString()));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('_model.pageTitle'),
+        actions: <Widget>[
+          FlatButton.icon(
+            onPressed: () => Navigator.pushNamed(context, '/'),
+            icon: Icon(Icons.home),
+            label: Text(''),
+          )
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.save),
+        onPressed: () async {
+          await context.read(orderCreateViewModelProvider).saveDocument();
+          Navigator.pushNamed(context, '/order-detail');
+        }, //_saveDocument,
+      ),
+      body: asyncData.when(
+          data: (_) => context.read(orderCreateViewModelProvider).page,
+          loading: () => CircularProgressIndicator(),
+          // TODO: create widget for loading indicator
+          error: (e, _) => Text(e.toString())),
+    );
   }
 }
