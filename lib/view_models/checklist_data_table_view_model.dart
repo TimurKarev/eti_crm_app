@@ -3,13 +3,6 @@ import 'package:eti_crm_app/providers/providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// final cloudFirebaseServiceCollectionGroupProvider = StreamProvider
-//     .family<Map<String, List<String>>, List<String>>((ref, argumentList) {
-//   final ser = ref.read(cloudFirebaseServiceProvider);
-//   return ser.collectionGroupStream(
-//       collectionGroup: argumentList[0], field: argumentList[1]);
-// });
-
 class ChecklistDataTableViewModel {
   final ProviderReference ref;
   final arguments = ["Checklists", "order"];
@@ -32,5 +25,3 @@ class ChecklistDataTableViewModel {
     // });
   }
 }
-
-
