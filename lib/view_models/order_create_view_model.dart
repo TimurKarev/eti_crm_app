@@ -1,7 +1,8 @@
 import 'package:eti_crm_app/models/order_create_model.dart';
 import 'package:eti_crm_app/providers/providers.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
-import 'package:eti_crm_app/ui/reusable_widgets/integer_form_widget.dart';
+import 'package:eti_crm_app/ui/reusable_widgets/forms/choice_form_widget.dart';
+import 'package:eti_crm_app/ui/reusable_widgets/forms/integer_form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,6 +14,7 @@ final orderCreteDataProvider = FutureProvider<bool>((ref) async {
   return vm.data;
 });
 
+//TODO: refactor for better architecture make it State notifier and make normal widget class
 class OrderCreateViewModel {
   final Reader read;
   OrderCreateModel _model;
@@ -27,9 +29,22 @@ class OrderCreateViewModel {
     return true;
   }
 
+  Future<bool> _isOrderExist() async {
+    var orders = read(orderListStreamProvider).data.value;
+
+    if (orders.contains(_model.orderName)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<void> _saveDocument() async {
-    await read(cloudFirebaseServiceProvider).setDocument(
-        path: FirestorePath.order(_model.orderName), data: _model.data);
+    bool isOrderExist = await _isOrderExist();
+    if (!isOrderExist) {
+      await read(cloudFirebaseServiceProvider).setDocument(
+          path: FirestorePath.order(_model.orderName), data: _model.data);
+    } else {}
   }
 
   Widget get page {
@@ -65,7 +80,13 @@ class OrderCreateViewModel {
         if (point['type'] == 'choice') {
           final variants =
               _model.getChoiceVariantsByStringIndex(point['variants_index']);
-          result.add(_createChoiceFiled(point, variants));
+          result.add(ChoiceFormWidget(
+            point: point,
+            variants: variants,
+            sectionIndex: sIndex,
+            pointIndex: pIndex,
+            updateModelCallback: _update,
+          ));
         }
       }
     }
@@ -75,37 +96,5 @@ class OrderCreateViewModel {
   void _update(int s, int c, String value) {
     _model.setPointValueByIndex(s, c, value);
     //print(_model.getSectionPointByIndex(s, c));
-  }
-
-  Widget _createChoiceFiled(
-      Map<String, dynamic> point, List<dynamic> variants) {
-    return Row(
-      children: [
-        Text(point['label']),
-        _createDropdownButton(point, variants),
-      ],
-    );
-  }
-
-  Widget _createDropdownButton(
-      Map<String, dynamic> point, List<dynamic> variants) {
-    //final variants = point['choices'];
-    List<DropdownMenuItem> menuItems = [];
-    variants.forEach((variant) {
-      final menuItem = DropdownMenuItem<String>(
-        child: Text(
-          variant['label'].toString(),
-        ),
-        value: variant['value'],
-      );
-      menuItems.add(menuItem);
-    });
-    return DropdownButton(
-      items: menuItems,
-      value: 'bktp',
-      onChanged: (newValue) {
-        print(newValue.toString());
-      },
-    );
   }
 }

@@ -13,21 +13,4 @@ class OrderCreatePage extends ConsumerWidget {
         // TODO: create widget for loading indicator
         error: (e, _) => Text(e.toString()));
   }
-
-  Widget _buildPage(OrderCreateModel data) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(data.pageTitle),
-      ),
-      body: _buildBody(data),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.save),
-        onPressed: () {},
-      ),
-    );
-  }
-
-  Widget _buildBody(OrderCreateModel data) {
-    return Container();
-  }
 }
