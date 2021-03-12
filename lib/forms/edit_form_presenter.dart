@@ -2,6 +2,7 @@ import 'package:eti_crm_app/forms/edit_form_state.dart';
 import 'package:eti_crm_app/forms/form_model.dart';
 import 'package:eti_crm_app/providers/providers.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final editFormPresenterProvider =
@@ -11,12 +12,17 @@ final editFormPresenterModelReadyProvider = FutureProvider.autoDispose
     .family<void, String>(
         (ref, path) => ref.read(editFormPresenterProvider).getModel(path));
 
-class EditFormPresenter extends StateNotifier<EditFormState> {
+final editFormStateNotifier =
+ChangeNotifierProvider((ref) => ref.read(editFormPresenterProvider));
+
+
+class EditFormPresenter extends ChangeNotifier {
   final Reader read;
 
   FormModel _model = FormModel();
+  EditFormState state = EditFormState();
 
-  EditFormPresenter(this.read) : super(EditFormState());
+  EditFormPresenter(this.read);
 
   Future<void> getModel(String path) async {
     final _data = await read(cloudFirebaseServiceProvider)
@@ -30,20 +36,26 @@ class EditFormPresenter extends StateNotifier<EditFormState> {
 
   Future<bool> _isOrderExist() async {
     var orders = read(orderListStreamProvider).data.value;
-
+    //print('is order exist');
     if (orders.contains(_model.orderName)) {
+      //print('True');
+      state.isOrderExistError = true;
+      state.errorMessage = 'Заказ с таким номером существует, введите уникальный номер';
+      //print('${state.isOrderExistError}');
+      notifyListeners();
       return true;
     } else {
+
       return false;
     }
   }
 
   Future<void> saveDocument() async {
-    bool isOrderExist = await _isOrderExist();
-    if (!isOrderExist) {
+   bool isOrderExist = await _isOrderExist();
+   if (!isOrderExist) {
       await read(cloudFirebaseServiceProvider).setDocument(
           path: FirestorePath.order(_model.orderName), data: _model.data);
-    } else {}
+   }
   }
 
   void update(int s, int c, String value) {

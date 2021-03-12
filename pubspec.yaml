@@ -33,6 +33,7 @@ dependencies:
   firebase_auth: ^0.20.1
   cloud_firestore: ^0.16.0
   flutter_riverpod: ^0.12.4
+  state_notifier: ^0.7.0
 
 dev_dependencies:
   flutter_test:

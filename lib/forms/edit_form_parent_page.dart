@@ -22,7 +22,7 @@ class EditFormParentPage extends StatelessWidget {
         child: Icon(Icons.save),
         onPressed: () async {
           await context.read(editFormPresenterProvider).saveDocument();
-          Navigator.pushNamed(context, '/order-detail');
+            //Navigator.pushNamed(context, '/order-detail');
         }, //_saveDocument,
       ),
       body: EditFormBody(),
