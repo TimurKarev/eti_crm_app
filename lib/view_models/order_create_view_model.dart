@@ -1,8 +1,8 @@
 import 'package:eti_crm_app/models/order_create_model.dart';
 import 'package:eti_crm_app/providers/providers.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
-import 'package:eti_crm_app/ui/reusable_widgets/forms/choice_form_widget.dart';
-import 'package:eti_crm_app/ui/reusable_widgets/forms/integer_form_widget.dart';
+// import 'file:///C:/Users/User/Documents/Project/eti_crm_app/lib/mvp/point_forms/choice_form_widget.dart';
+// import 'package:eti_crm_app/ui/reusable_widgets/forms/integer_form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -62,22 +62,22 @@ class OrderCreateViewModel {
           pIndex++) {
         final point = _model.getSectionPointByIndex(sIndex, pIndex);
         if (point['type'] == 'integer') {
-          result.add(IntegerFormWidget(
-              point: point,
-              sectionIndex: sIndex,
-              pointIndex: pIndex,
-              updateModelCallback: _update));
+          // result.add(IntegerFormWidget(
+          //     point: point,
+          //     sectionIndex: sIndex,
+          //     pointIndex: pIndex,
+          //     updateModelCallback: _update));
         }
         if (point['type'] == 'choice') {
           final variants =
               _model.getChoiceVariantsByStringIndex(point['variants_index']);
-          result.add(ChoiceFormWidget(
-            point: point,
-            variants: variants,
-            sectionIndex: sIndex,
-            pointIndex: pIndex,
-            updateModelCallback: _update,
-          ));
+          // result.add(ChoiceFormWidget(
+          //   point: point,
+          //   variants: variants,
+          //   sectionIndex: sIndex,
+          //   pointIndex: pIndex,
+          //   updateModelCallback: _update,
+          //));
         }
       }
     }

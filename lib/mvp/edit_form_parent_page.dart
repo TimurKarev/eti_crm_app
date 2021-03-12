@@ -1,14 +1,16 @@
+import 'package:eti_crm_app/mvp/edit_form_body.dart';
+import 'package:eti_crm_app/mvp/edit_form_presenter.dart';
 import 'package:eti_crm_app/view_models/order_create_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OrderCreatePage extends ConsumerWidget {
+class EditFormParentPage extends StatelessWidget {
   @override
-  Widget build(BuildContext context, watch) {
-    final asyncData = watch(orderCreteDataProvider);
+  Widget build(BuildContext context) {
+    final titleText = context.read(editFormPresenterProvider).titleText;
     return Scaffold(
       appBar: AppBar(
-        title: Text('_model.pageTitle'),
+        title: Text(titleText),
         actions: <Widget>[
           FlatButton.icon(
             onPressed: () => Navigator.pushNamed(context, '/'),
@@ -20,15 +22,11 @@ class OrderCreatePage extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save),
         onPressed: () async {
-          await context.read(orderCreateViewModelProvider).saveDocument();
+          await context.read(editFormPresenterProvider).saveDocument();
           Navigator.pushNamed(context, '/order-detail');
         }, //_saveDocument,
       ),
-      body: asyncData.when(
-          data: (_) => context.read(orderCreateViewModelProvider).page,
-          loading: () => CircularProgressIndicator(),
-          // TODO: create widget for loading indicator
-          error: (e, _) => Text(e.toString())),
+      body: EditFormBody(),
     );
   }
 }

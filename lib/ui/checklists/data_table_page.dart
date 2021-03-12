@@ -1,4 +1,5 @@
 import 'package:eti_crm_app/models/check_list_data_table_model.dart';
+import 'package:eti_crm_app/mvp/edit_form_extract_arg.dart';
 import 'package:eti_crm_app/providers/providers.dart';
 import 'package:eti_crm_app/ui/reusable_widgets/cell_buttons_data_table.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,9 @@ class DataTablePage extends ConsumerWidget {
           //     return OrderCreatePage();
           //   }),
           // );
-          Navigator.pushNamed(context, '/create-order');
+          Navigator.pushNamed(context, EditFormExtractArg.routeName,
+              arguments: EditFormArguments(
+                  action: EditFormArguments.ACTION_CREATE_ORDER));
         },
         child: Icon(Icons.add),
         tooltip: 'Создать новый заказ',
