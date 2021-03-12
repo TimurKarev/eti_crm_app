@@ -1,6 +1,5 @@
-import 'package:eti_crm_app/mvp/edit_form_extract_arg.dart';
+import 'package:eti_crm_app/forms/edit_form_extract_arg.dart';
 import 'package:eti_crm_app/ui/landing_page.dart';
-import 'package:eti_crm_app/ui/order_create_page.dart';
 import 'package:eti_crm_app/ui/order_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,7 +29,6 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => LandingPage(),
-        '/create-order': (context) => OrderCreatePage(),
         '/order-detail': (context) => OrderPage(),
         EditFormExtractArg.routeName: (context) => EditFormExtractArg(),
       },

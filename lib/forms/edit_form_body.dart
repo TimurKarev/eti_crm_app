@@ -1,6 +1,6 @@
-import 'package:eti_crm_app/mvp/edit_form_presenter.dart';
-import 'package:eti_crm_app/mvp/point_forms/choice_form_widget.dart';
-import 'package:eti_crm_app/mvp/point_forms/integer_form_widget.dart';
+import 'package:eti_crm_app/forms/edit_form_presenter.dart';
+import 'package:eti_crm_app/forms/point_forms/choice_form_widget.dart';
+import 'package:eti_crm_app/forms/point_forms/integer_form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

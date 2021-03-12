@@ -1,5 +1,5 @@
-import 'package:eti_crm_app/mvp/edit_form_parent_page.dart';
-import 'package:eti_crm_app/mvp/edit_form_presenter.dart';
+import 'package:eti_crm_app/forms/edit_form_parent_page.dart';
+import 'package:eti_crm_app/forms/edit_form_presenter.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

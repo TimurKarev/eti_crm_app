@@ -1,6 +1,5 @@
-import 'package:eti_crm_app/mvp/edit_form_body.dart';
-import 'package:eti_crm_app/mvp/edit_form_presenter.dart';
-import 'package:eti_crm_app/view_models/order_create_view_model.dart';
+import 'package:eti_crm_app/forms/edit_form_body.dart';
+import 'package:eti_crm_app/forms/edit_form_presenter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
