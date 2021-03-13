@@ -1,4 +1,4 @@
-import 'package:eti_crm_app/forms/edit_form_parent_page.dart';
+import 'package:eti_crm_app/forms/create_form_parent_page.dart';
 import 'package:eti_crm_app/forms/edit_form_presenter.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +6,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class EditFormArguments {
   static const String ACTION_CREATE_ORDER = 'create_order';
-  final String action;
+  static const String ACTION_EDIT_EXIST_ORDER = 'edit_order';
 
-  EditFormArguments({this.action});
+  final String action;
+  final String orderNum;
+
+  EditFormArguments({@required this.action, this.orderNum});
 }
 
 class EditFormExtractArg extends ConsumerWidget {
@@ -22,7 +25,20 @@ class EditFormExtractArg extends ConsumerWidget {
       return watch(editFormPresenterModelReadyProvider(
               FirestorePath.order_create_form()))
           .when(data: (_) {
-        return EditFormParentPage();
+        return CreateFormParentPage();
+      }, loading: () {
+        return CircularProgressIndicator();
+      }, error: (e, _) {
+        print(e.toString());
+        return Text(e.toString());
+      });
+    }
+    if (args.action == EditFormArguments.ACTION_EDIT_EXIST_ORDER) {
+      print('hello ${FirestorePath.order(args.orderNum)}');
+      return watch(editFormPresenterModelReadyProvider(
+              FirestorePath.order(args.orderNum)))
+          .when(data: (_) {
+        return CreateFormParentPage();
       }, loading: () {
         return CircularProgressIndicator();
       }, error: (e, _) {

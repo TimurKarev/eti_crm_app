@@ -39,12 +39,6 @@ class DataTablePage extends ConsumerWidget {
       ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) {
-          //     return OrderCreatePage();
-          //   }),
-          // );
           Navigator.pushNamed(context, EditFormExtractArg.routeName,
               arguments: EditFormArguments(
                   action: EditFormArguments.ACTION_CREATE_ORDER));

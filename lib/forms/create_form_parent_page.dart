@@ -3,7 +3,7 @@ import 'package:eti_crm_app/forms/edit_form_presenter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EditFormParentPage extends StatelessWidget {
+class CreateFormParentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final titleText = context.read(editFormPresenterProvider).titleText;

@@ -1,3 +1,4 @@
+import 'package:eti_crm_app/forms/edit_form_extract_arg.dart';
 import 'package:eti_crm_app/models/check_list_data_table_model.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +34,13 @@ class DataTableTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => print(cell.callback),
+      onPressed: () {
+        Navigator.pushNamed(context, EditFormExtractArg.routeName,
+            arguments: EditFormArguments(
+                action: EditFormArguments.ACTION_EDIT_EXIST_ORDER,
+                orderNum: cell.order));
+        print(cell.order);
+      },
       child: Text(cell.label),
     );
   }

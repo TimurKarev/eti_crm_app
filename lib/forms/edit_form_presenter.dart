@@ -26,7 +26,7 @@ class EditFormPresenter extends ChangeNotifier {
 
   Future<void> getModel(String path) async {
     final _data = await read(cloudFirebaseServiceProvider)
-        .getDocument(path: FirestorePath.order_create_form());
+        .getDocument(path: path);
     _model.model = _data;
 
     if (_model.model.isEmpty) {
