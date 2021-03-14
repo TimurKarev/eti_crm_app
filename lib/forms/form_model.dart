@@ -8,7 +8,7 @@ class FormModel {
 
   String get pageTitle => model['headers']['title'];
 
-  String get orderName => model['sections'][0]['points'][0]['value'];
+  String get firstEleventValue => model['sections'][0]['points'][0]['value'];
 
   int get sectionsNumber => model['sections'].length;
 

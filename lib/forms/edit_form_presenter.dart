@@ -6,75 +6,115 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final editFormPresenterProvider =
-    Provider((ref) => EditFormPresenter(ref.read));
+    Provider<EditFormPresenter>((ref) => EditFormPresenter(ref.read));
 
 final editFormPresenterModelReadyProvider = FutureProvider.autoDispose
     .family<void, String>(
-        (ref, path) => ref.read(editFormPresenterProvider).getModel(path));
+        (ref, path) => ref.read(editFormPresenterProvider).initPresenter(path));
 
 final editFormStateNotifier =
-ChangeNotifierProvider((ref) => ref.read(editFormPresenterProvider));
-
+    ChangeNotifierProvider((ref) => ref.read(editFormPresenterProvider));
 
 class EditFormPresenter extends ChangeNotifier {
   final Reader read;
 
-  FormModel _model = FormModel();
-  EditFormState state = EditFormState();
+  FormModel model = FormModel();
+  EditFormState state;
 
   EditFormPresenter(this.read);
 
-  Future<void> getModel(String path) async {
-    final _data = await read(cloudFirebaseServiceProvider)
-        .getDocument(path: path);
-    _model.model = _data;
-
-    if (_model.model.isEmpty) {
+  Future<void> initPresenter(String path) async {
+    final _data =
+        await read(cloudFirebaseServiceProvider).getDocument(path: path);
+    model.model = _data;
+    _initState();
+    if (model.model.isEmpty) {
       throw 'Не получается загрузить данные из Базы Данных ';
     }
+  }
+
+  void _initState() {
+    state = EditFormState();
+    if (model.model.containsKey('order')) {
+      state.action = EditFormState.ACTION_EDIT;
+    } else {
+      state.action = EditFormState.ACTION_CREATE;
+    }
+    print('state ' + state.action);
   }
 
   Future<bool> _isOrderExist() async {
     var orders = read(orderListStreamProvider).data.value;
     //print('is order exist');
-    if (orders.contains(_model.orderName)) {
+    if (orders.contains(model.firstEleventValue)) {
       //print('True');
-      state.isOrderExistError = true;
-      state.errorMessage = 'Заказ с таким номером существует, введите уникальный номер';
-      //print('${state.isOrderExistError}');
-      notifyListeners();
       return true;
     } else {
-
       return false;
     }
   }
 
   Future<void> saveDocument() async {
-   bool isOrderExist = await _isOrderExist();
-   if (!isOrderExist) {
-      await read(cloudFirebaseServiceProvider).setDocument(
-          path: FirestorePath.order(_model.orderName), data: _model.data);
-   }
+    if (state.action == EditFormState.ACTION_EDIT) {
+      await writeToCloudFirestore();
+    } else {
+      bool isOrderExist = await _isOrderExist();
+      if (!isOrderExist) {
+        _alterModelForSaving();
+        await writeToCloudFirestore();
+      } else {
+        state.isOrderExistError = true;
+        state.errorMessage =
+            'Заказ с таким номером существует, введите уникальный номер';
+        notifyListeners();
+        throw 'Order exist exception';
+      }
+    }
+  }
+
+  Future writeToCloudFirestore() async {
+    await read(cloudFirebaseServiceProvider)
+        .setDocument(path: FirestorePath.order(orderNumber), data: model.data);
+  }
+
+  void _alterModelForSaving() {
+    // Заменить заголовок листа
+    if (state.action == EditFormState.ACTION_CREATE) {
+      model.model['order'] = orderNumber;
+      model.model['headers']['title'] =
+          'Конфигурация заказа №${model.firstEleventValue}';
+      model.model['headers']['substation_type'] =
+          model.getSectionPointByIndex(0, 1)['value'];
+
+      model.model['sections'].removeAt(0);
+      state.action = EditFormState.ACTION_AFTER_ALTERING;
+    }
   }
 
   void update(int s, int c, String value) {
-    _model.setPointValueByIndex(s, c, value);
+    model.setPointValueByIndex(s, c, value);
     //print(_model.getSectionPointByIndex(s, c));
   }
 
-  String get titleText => _model.pageTitle;
+  String get orderNumber {
+    if (state.action == EditFormState.ACTION_CREATE) {
+      return model.firstEleventValue;
+    }
+    return model.model['order'];
+  }
 
-  int get sectionsNumber => _model.sectionsNumber;
+  String get titleText => model.pageTitle;
 
-  String getSectionLabelByIndex(sIndex) =>
-      _model.getSectionLabelByIndex(sIndex);
+  int get sectionsNumber => model.sectionsNumber;
+
+  String getSectionLabelByIndex(sIndex) => model.getSectionLabelByIndex(sIndex);
 
   int getPointsNumberInSection(sIndex) =>
-      _model.getPointsNumberInSection(sIndex);
+      model.getPointsNumberInSection(sIndex);
 
   Map<String, dynamic> getSectionPointByIndex(sIndex, pIndex) =>
-      _model.getSectionPointByIndex(sIndex, pIndex);
+      model.getSectionPointByIndex(sIndex, pIndex);
 
-  List<dynamic> getChoiceVariantsByStringIndex(String pointIndex) => _model.getChoiceVariantsByStringIndex(pointIndex);
+  List<dynamic> getChoiceVariantsByStringIndex(String pointIndex) =>
+      model.getChoiceVariantsByStringIndex(pointIndex);
 }

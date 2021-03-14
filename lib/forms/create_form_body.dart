@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-class EditFormBody extends ConsumerWidget {
+class CreateFormBody extends ConsumerWidget {
   @override
   Widget build(BuildContext context, watch) {
     final stateNotifier = watch(editFormStateNotifier);
