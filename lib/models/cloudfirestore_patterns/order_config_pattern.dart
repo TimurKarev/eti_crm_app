@@ -128,6 +128,7 @@ class OrderConfigPattern {
       },
       {
         "label": "Металлоизделия нижний модуль",
+        'order_config_index': 'building_bottom_module_num',
         "points": [
           {
             'variant_index': 'four_choice_variants',
@@ -145,6 +146,7 @@ class OrderConfigPattern {
       },
       {
         "label": "Производство нижнего модуля",
+        'order_config_index': 'building_bottom_module_num',
         "points": [
           {
             'variant_index': 'four_choice_variants',
@@ -191,6 +193,7 @@ class OrderConfigPattern {
       },
       {
         "label": "Размеры нижнего модуля",
+        'order_config_index': 'building_bottom_module_num',
         "points": [
           {
             'variant_index': 'four_choice_variants',
@@ -208,6 +211,7 @@ class OrderConfigPattern {
       },
       {
         "label": "Проходные отверстия нижнего модуля",
+        'order_config_index': 'building_bottom_module_num',
         "points": [
           {
             'variant_index': 'four_choice_variants',
@@ -231,6 +235,7 @@ class OrderConfigPattern {
       },
       {
         "label": "Металлоизделия верхнего модуля",
+        'order_config_index': 'building_top_module_num',
         "points": [
           {
             'variant_index': 'four_choice_variants',
@@ -254,6 +259,7 @@ class OrderConfigPattern {
       },
       {
         "label": "Производство верхнего модуля",
+        'order_config_index': 'building_top_module_num',
         "points": [
           {
             'variant_index': 'four_choice_variants',
@@ -271,6 +277,7 @@ class OrderConfigPattern {
       },
       {
         "label": "Размеры верхнего модуля",
+        'order_config_index': 'building_top_module_num',
         "points": [
           {
             'variant_index': 'four_choice_variants',
@@ -288,6 +295,7 @@ class OrderConfigPattern {
       },
       {
         "label": "Проходные отверстия верхнего модуля",
+        'order_config_index': 'building_top_module_num',
         "points": [
           {
             'variant_index': 'four_choice_variants',

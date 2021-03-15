@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 class FirestorePath {
   static String user(String userUid) => 'Users/$userUid';
 
@@ -12,4 +14,7 @@ class FirestorePath {
 
   static String checklist_pattern(String type) =>
       '/Config/checklists/create_patterns/$type';
+
+  static String checklist({@required String orderNum, @required String type}) =>
+      Orders() + '/$orderNum/Checklists/$type';
 }

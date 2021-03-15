@@ -20,21 +20,37 @@ class CreateChecklistExtractArg extends StatelessWidget {
     final CreateChecklistArguments args =
         ModalRoute.of(context).settings.arguments;
     try {
-      _createChecklist(context, args.type, args.orderNum);
+      _createBMChecklist(context, args.type, args.orderNum);
       return Text('Create checklist Success');
     } catch (e) {
       return Container(child: Text('${e.toString()}'));
     }
   }
 
-  Future<void> _createChecklist(
+  Future<void> _createBMChecklist(
       BuildContext context, String type, String orderNum) async {
-    final data = await context
+    final checklistData = await context
         .read(cloudFirebaseServiceProvider)
         .getDocument(path: FirestorePath.checklist_pattern(type));
 
-    FormModel model = FormModel();
-    model.model = data;
-    print(model.model.toString());
+    FormModel checklistModel = FormModel(model: checklistData);
+
+    final orderConfigData = await context
+        .read(cloudFirebaseServiceProvider)
+        .getDocument(path: FirestorePath.order(orderNum));
+
+    FormModel configModel = FormModel(model: orderConfigData);
+
+    final dict = configModel.getIndexesDict();
+    checklistModel.rebuildModelFromDict(
+        dict: dict, order: orderNum, type: type);
+
+    try {
+      await context.read(cloudFirebaseServiceProvider).setDocument(
+          path: FirestorePath.checklist(orderNum: orderNum, type: type),
+          data: checklistModel.model);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

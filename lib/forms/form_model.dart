@@ -1,5 +1,9 @@
+import 'package:flutter/foundation.dart';
+
 class FormModel {
   Map<String, dynamic> model;
+
+  FormModel({this.model});
 
   // FormModel([this._model]);
   // set data( Map<String, dynamic> model) => _model = model;
@@ -8,7 +12,7 @@ class FormModel {
 
   String get pageTitle => model['headers']['title'];
 
-  String get firstEleventValue => model['sections'][0]['points'][0]['value'];
+  String get firstElementValue => model['sections'][0]['points'][0]['value'];
 
   int get sectionsNumber => model['sections'].length;
 
@@ -20,8 +24,7 @@ class FormModel {
   }
 
   Map<String, dynamic> getSectionPointByIndex(int indSec, int indPoint) {
-    Map<String, dynamic> result =
-        model['sections'][indSec]['points'][indPoint];
+    Map<String, dynamic> result = model['sections'][indSec]['points'][indPoint];
     return result;
   }
 
@@ -45,4 +48,68 @@ class FormModel {
     }
     return result;
   }
+
+  String getPointValueByStringIndex(String strIndex) {
+    //print('Section = $sectionsNumber');
+    for (var s = 0; s < sectionsNumber; s++) {
+      for (var p = 0; p < getPointsNumberInSection(s); p++) {
+        final point = getSectionPointByIndex(s, p);
+        //print(point.toString());
+        if (point.containsKey('index')) {
+          if (point['index'] == strIndex) return point['value'];
+        }
+      }
+    }
+    return '0';
+  }
+
+  Map<String, int> getIndexesDict() {
+    Map<String, int> dict = {};
+    for (var s = 0; s < sectionsNumber; s++) {
+      for (var p = 0; p < getPointsNumberInSection(s); p++) {
+        final point = getSectionPointByIndex(s, p);
+        //print(point.toString());
+        if (point.containsKey('index')) {
+          try {
+            var value = int.parse(point['value']);
+            dict[point['index']] = value;
+          } catch (e) {
+            dict[point['index']] = 1;
+          }
+        }
+      }
+    }
+    return dict;
+  }
+
+  void rebuildModelFromDict({@required Map<String, int> dict, @required String order, @required String type}) {
+    Map<String, dynamic> newModel = {};
+    List<dynamic> newSections = [];
+    final List<dynamic> sections = model['sections'];
+    sections.forEach((section)  {
+      final index = section['order_config_index'];
+      if (index == null) {
+        newSections.add(section);
+      } else {
+        final int sectionQuantity = dict[index] ?? 1;
+        final label = section['label'];
+        for (var i=0; i<sectionQuantity; i++) {
+          final n = sectionQuantity > 1 ? ' N${i+1}' : '';
+          Map curSec = {...section};
+          curSec['label'] = label + n;
+          newSections.add(curSec);
+        }
+      }
+    });
+    newModel['sections'] = newSections;
+    newModel['order'] = order;
+    newModel['config'] = model['config'];
+    newModel['headers'] = {'title' : _getChecklistTitle(order, type)};
+    model = newModel;
+  }
+
+  String _getChecklistTitle(String order, String type) {
+    return 'Чеклист строительной части №$order';
+  }
+
 }

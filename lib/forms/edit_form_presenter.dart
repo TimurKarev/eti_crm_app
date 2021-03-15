@@ -46,7 +46,7 @@ class EditFormPresenter extends ChangeNotifier {
   Future<bool> _isOrderExist() async {
     var orders = read(orderListStreamProvider).data.value;
     //print('is order exist');
-    if (orders.contains(model.firstEleventValue)) {
+    if (orders.contains(model.firstElementValue)) {
       //print('True');
       return true;
     } else {
@@ -82,7 +82,7 @@ class EditFormPresenter extends ChangeNotifier {
     if (state.action == EditFormState.ACTION_CREATE) {
       model.model['order'] = orderNumber;
       model.model['headers']['title'] =
-          'Конфигурация заказа №${model.firstEleventValue}';
+          'Конфигурация заказа №${model.firstElementValue}';
       model.model['headers']['substation_type'] =
           model.getSectionPointByIndex(0, 1)['value'];
 
@@ -98,7 +98,7 @@ class EditFormPresenter extends ChangeNotifier {
 
   String get orderNumber {
     if (state.action == EditFormState.ACTION_CREATE) {
-      return model.firstEleventValue;
+      return model.firstElementValue;
     }
     return model.model['order'];
   }
