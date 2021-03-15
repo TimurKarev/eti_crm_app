@@ -5,8 +5,11 @@ class FirestorePath {
 
   static String order(String orderName) => Orders() + '/' + orderName;
 
-  static String order_config() => 'OrderConfig';
+  static String order_config() => 'Config/order';
 
   static String order_create_form() =>
-      order_config() + '/order_create_form';
+      order_config() + '/Forms/order_create_form';
+
+  static String checklist_pattern(String type) =>
+      '/Config/checklists/create_patterns/$type';
 }

@@ -21,18 +21,18 @@ class ChecklistDataTableModel {
     ordersList.forEach((order) {
       List<DataTableCellModel> row = [
         DataTableCellModel(
-            action: 'watch', label: order, order: order, element: order)
+            action: DataTableCellModel.ACTION_VIEW_ORDER, label: order, order: order, element: order)
       ];
       columnIndexes.forEach((element) {
         if (data[order].contains(element)) {
           row.add(DataTableCellModel(
-              action: 'watch',
+              action: DataTableCellModel.ACTION_VIEW_CHECKLIST,
               label: 'просмотр',
               order: order,
               element: element));
         } else {
           row.add(DataTableCellModel(
-              action: 'create',
+              action: DataTableCellModel.ACTION_CREATE_CHECKLIST,
               label: 'создать',
               order: order,
               element: element));
@@ -44,6 +44,10 @@ class ChecklistDataTableModel {
 }
 
 class DataTableCellModel {
+  static const ACTION_VIEW_ORDER = 'view_order';
+  static const ACTION_CREATE_CHECKLIST = 'create_checklist';
+  static const ACTION_VIEW_CHECKLIST = 'view_checklist';
+
   final String label;
   final String element;
   final String order;

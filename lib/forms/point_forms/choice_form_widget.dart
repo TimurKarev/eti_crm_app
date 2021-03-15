@@ -5,6 +5,7 @@ class ChoiceFormWidget extends StatefulWidget {
   final List<dynamic> variants;
   final int sectionIndex;
   final int pointIndex;
+  final bool editable;
   final void Function(int, int, String) updateModelCallback;
 
   ChoiceFormWidget({
@@ -14,6 +15,7 @@ class ChoiceFormWidget extends StatefulWidget {
     @required this.sectionIndex,
     @required this.pointIndex,
     @required this.updateModelCallback,
+    this.editable,
   }) : super(key: key);
 
   @override
@@ -34,7 +36,9 @@ class _ChoiceFormWidgetState extends State<ChoiceFormWidget> {
       child: Row(
         children: [
           Text(widget.point['label']),
-          _createDropdownButton(widget.point, widget.variants),
+          widget.editable == true ?
+          _createDropdownButton(widget.point, widget.variants) :
+          Text(widget.point['value']),
         ],
       ),
     );
@@ -54,6 +58,7 @@ class _ChoiceFormWidgetState extends State<ChoiceFormWidget> {
       menuItems.add(menuItem);
     });
     return DropdownButton(
+
       items: menuItems,
       value: value,
       onChanged: (newValue) {

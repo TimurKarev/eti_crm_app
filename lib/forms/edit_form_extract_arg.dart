@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class EditFormArguments {
   static const String ACTION_CREATE_ORDER = 'create_order';
   static const String ACTION_EDIT_EXIST_ORDER = 'edit_order';
+  static const String ACTION_VIEW_EXIST_ORDER = 'view_order';
 
   final String action;
   final String orderNum;
@@ -25,7 +26,7 @@ class EditFormExtractArg extends ConsumerWidget {
       return watch(editFormPresenterModelReadyProvider(
               FirestorePath.order_create_form()))
           .when(data: (_) {
-        return CreateFormParentPage();
+        return CreateFormParentPage(nextRoute: '/', editable: true,);
       }, loading: () {
         return CircularProgressIndicator();
       }, error: (e, _) {
@@ -34,11 +35,32 @@ class EditFormExtractArg extends ConsumerWidget {
       });
     }
     if (args.action == EditFormArguments.ACTION_EDIT_EXIST_ORDER) {
-      print('hello ${FirestorePath.order(args.orderNum)}');
       return watch(editFormPresenterModelReadyProvider(
               FirestorePath.order(args.orderNum)))
           .when(data: (_) {
-        return CreateFormParentPage();
+        return CreateFormParentPage(
+            nextRoute: EditFormExtractArg.routeName,
+            args: EditFormArguments(
+                action: EditFormArguments.ACTION_VIEW_EXIST_ORDER,
+                orderNum: args.orderNum),
+            editable: true);
+      }, loading: () {
+        return CircularProgressIndicator();
+      }, error: (e, _) {
+        print(e.toString());
+        return Text(e.toString());
+      });
+    }
+    if (args.action == EditFormArguments.ACTION_VIEW_EXIST_ORDER) {
+      return watch(editFormPresenterModelReadyProvider(
+              FirestorePath.order(args.orderNum)))
+          .when(data: (_) {
+        return CreateFormParentPage(
+            nextRoute: EditFormExtractArg.routeName,
+            args: EditFormArguments(
+                action: EditFormArguments.ACTION_EDIT_EXIST_ORDER,
+                orderNum: args.orderNum),
+            editable: false);
       }, loading: () {
         return CircularProgressIndicator();
       }, error: (e, _) {

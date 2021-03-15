@@ -3,9 +3,12 @@ import 'package:eti_crm_app/forms/point_forms/choice_form_widget.dart';
 import 'package:eti_crm_app/forms/point_forms/integer_form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:state_notifier/state_notifier.dart';
 
 class CreateFormBody extends ConsumerWidget {
+  final editable;
+
+  CreateFormBody({this.editable});
+
   @override
   Widget build(BuildContext context, watch) {
     final stateNotifier = watch(editFormStateNotifier);
@@ -29,6 +32,7 @@ class CreateFormBody extends ConsumerWidget {
               point: point,
               sectionIndex: sIndex,
               pointIndex: pIndex,
+              editable: editable,
               updateModelCallback: presenter.update));
         }
         if (point['type'] == 'choice') {
@@ -39,6 +43,7 @@ class CreateFormBody extends ConsumerWidget {
             variants: variants,
             sectionIndex: sIndex,
             pointIndex: pIndex,
+            editable: editable,
             updateModelCallback: presenter.update,
           ));
         }

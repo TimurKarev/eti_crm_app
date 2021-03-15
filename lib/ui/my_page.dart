@@ -42,8 +42,11 @@ class MyPage extends ConsumerWidget {
   }
 
   void _setDocument(BuildContext context) async {
+    // context.read(cloudFirebaseServiceProvider).setData(
+    //     path: FirestorePath.order_create_form(),
+    //     data: OrderConfigPattern.orderConfig);
     context.read(cloudFirebaseServiceProvider).setData(
-        path: FirestorePath.order_create_form(),
-        data: OrderConfigPattern.orderConfig);
+        path: FirestorePath.checklist_pattern('bm_checklist'),
+        data: OrderConfigPattern.bmChecklistConfig);
   }
 }
