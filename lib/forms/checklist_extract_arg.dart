@@ -33,8 +33,13 @@ class ChecklistExtractArg extends ConsumerWidget {
 
     if (args.action == ChecklistArguments.CHECKLIST_ACTION_CREATE) {
       try {
-        _createChecklist(context, args.type, args.orderNum);
-        return Text('Create checklist Success');
+        _createChecklist(context, args.type, args.orderNum).whenComplete(() =>
+        Navigator.pushNamed(
+            context, ChecklistExtractArg.routeName,
+            arguments: ChecklistArguments(
+                orderNum: args.orderNum,
+                action: ChecklistArguments.CHECKLIST_ACTION_VIEW,
+                type: args.type)));
       } catch (e) {
         return Container(child: Text('${e.toString()}'));
       }
