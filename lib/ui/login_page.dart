@@ -7,11 +7,11 @@ class LoginPage extends ConsumerWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _login(
+  Future<void> _login(
       {@required BuildContext context,
       @required String email,
-      @required String password}) {
-    context
+      @required String password}) async {
+    await context
         .read(userViewModelProvider)
         .signIn(email: email, password: password);
   }
@@ -55,8 +55,8 @@ class LoginPage extends ConsumerWidget {
             SizedBox(
               height: 40.0,
               child: ElevatedButton(
-                onPressed: () {
-                  _login(
+                onPressed: () async {
+                  await _login(
                       context: context,
                       email: _emailController.text,
                       password: _passwordController.text);
@@ -78,9 +78,9 @@ class LoginPage extends ConsumerWidget {
   }
 
   void _navigateToRegister(BuildContext ctx) {
-    Navigator.pushAndRemoveUntil(
-        ctx,
-        MaterialPageRoute(builder: (context) => RegistrationPage()),
-        (route) => false);
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(builder: (context) => RegistrationPage()),
+    );
   }
 }

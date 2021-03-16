@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 class CloudFirebaseAuth {
   final _auth = FirebaseAuth.instance;
 
-  Stream<User> authStateChanges() => _auth.authStateChanges();
+  Stream<User> authStateChanges() => _auth.userChanges();
 
   Future<User> signInAnonymously() async {
     final userCredential = await _auth.signInAnonymously();
@@ -29,7 +29,9 @@ class CloudFirebaseAuth {
       email: email,
       password: password,
     );
-    return userCredential.user;
+    print('User cred  ' + userCredential.toString());
+    await userCredential.user.reload();
+    //_auth.userChanges();
   }
 
   Future<void> signOut() async {

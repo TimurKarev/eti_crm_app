@@ -24,12 +24,6 @@ class RegistrationPage extends ConsumerWidget {
       appBar: AppBar(
         title: Text('Зарегестрировать нового пользователя'),
         actions: <Widget>[
-          FlatButton(
-            onPressed: () {
-              _navigateToLogin(context);
-            },
-            child: Text('Войти'),
-          ),
         ],
       ),
       body: Padding(
@@ -70,16 +64,10 @@ class RegistrationPage extends ConsumerWidget {
                       email: _emailController.text,
                       password: _passwordController.text);
                 },
-                child: Text('Войти'),
+                child: Text('Зарегестрироваться'),
               ),
             ),
             SizedBox(height: 30.0),
-            FlatButton(
-              onPressed: () {
-                _navigateToLogin(context);
-              },
-              child: Text('Есть пароль? Войти в программу'),
-            ),
           ],
         ),
       ),
@@ -87,7 +75,9 @@ class RegistrationPage extends ConsumerWidget {
   }
 
   void _navigateToLogin(BuildContext ctx) {
-    Navigator.pushAndRemoveUntil(ctx,
-        MaterialPageRoute(builder: (context) => LoginPage()), (route) => false);
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(builder: (context) => LoginPage()),
+    );
   }
 }

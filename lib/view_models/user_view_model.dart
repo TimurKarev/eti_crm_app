@@ -20,7 +20,7 @@ class UserViewModel extends ChangeNotifier {
   UserModel _userModel = UserModel();
 
   UserViewModel({@required this.ref}) {
-    _authStateChangeListener();
+    //_authStateChangeListener();
   }
 
   UserModel get userModel => _userModel;
@@ -28,6 +28,20 @@ class UserViewModel extends ChangeNotifier {
   String get uid => _userModel.uid;
 
   String get email => _userModel.email;
+
+  Stream<UserModel> userModelStream() {
+    final user = ref.watch(authStateChangeProvider);
+    // return user.map((event) {
+    //   userModel.updateFromUser(event);
+    //   return userModel;
+    // });
+    return user.when(data: (data) async* {
+      print('stream user change');
+      userModel.updateFromUser(data);
+      yield userModel;
+    }, loading: () async* { yield userModel;}, error: (e,_) async* { yield userModel;} );
+
+  }
 
   //TODO: Переделать в поток и убрать разницу во времени и бесполезные обновления
   void _authStateChangeListener() {
@@ -49,12 +63,12 @@ class UserViewModel extends ChangeNotifier {
     );
   }
 
-  void signOut() {
-    ref.read(authProvider).signOut();
+  Future<void> signOut() async {
+    await ref.read(authProvider).signOut();
   }
 
-  void signIn({String email, String password}) {
-    ref
+  Future<void> signIn({String email, String password}) async {
+    await ref
         .read(authProvider)
         .signInEmailAndPassword(email: email, password: password);
   }
