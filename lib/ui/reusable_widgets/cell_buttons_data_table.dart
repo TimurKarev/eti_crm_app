@@ -1,4 +1,4 @@
-import 'package:eti_crm_app/forms/create_checklist_extract_arg.dart';
+import 'package:eti_crm_app/forms/checklist_extract_arg.dart';
 import 'package:eti_crm_app/forms/edit_form_extract_arg.dart';
 import 'package:eti_crm_app/models/check_list_data_table_model.dart';
 import 'package:flutter/material.dart';
@@ -43,11 +43,19 @@ class DataTableTextButton extends StatelessWidget {
                   orderNum: cell.order));
         }
         if (cell.action == DataTableCellModel.ACTION_CREATE_CHECKLIST) {
-          Navigator.pushNamed(context, CreateChecklistExtractArg.routeName,
-              arguments: CreateChecklistArguments(
-                  type: cell.element, orderNum: cell.order));
+          Navigator.pushNamed(context, ChecklistExtractArg.routeName,
+              arguments: ChecklistArguments(
+                  action: ChecklistArguments.CHECKLIST_ACTION_CREATE,
+                  type: cell.element,
+                  orderNum: cell.order));
         }
-        print(cell.callback);
+        if (cell.action == DataTableCellModel.ACTION_VIEW_CHECKLIST) {
+          Navigator.pushNamed(context, ChecklistExtractArg.routeName,
+              arguments: ChecklistArguments(
+                  action: ChecklistArguments.CHECKLIST_ACTION_VIEW,
+                  type: cell.element,
+                  orderNum: cell.order));
+        }
       },
       child: Text(cell.label),
     );

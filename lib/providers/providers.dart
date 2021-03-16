@@ -11,11 +11,18 @@ final userViewModelProvider = ChangeNotifierProvider<UserViewModel>((ref) {
 
 final cloudFirebaseServiceProvider = Provider((ref) => CloudFirebaseService());
 
+final futureDocumentProvider =
+    FutureProvider.family<Map<String, dynamic>, String>((ref, String path) {
+  return ref.read(cloudFirebaseServiceProvider).getDocument(path: path);
+});
+
 final checklistTableDataStream = StreamProvider<ChecklistDataTableModel>((ref) {
-  final vm =  ChecklistDataTableViewModel(ref: ref);
+  final vm = ChecklistDataTableViewModel(ref: ref);
   return vm.dataTableStreamListener();
 });
 
 final orderListStreamProvider = StreamProvider<List<String>>((ref) {
-  return ref.watch(cloudFirebaseServiceProvider).collectionStream(path: FirestorePath.Orders());
+  return ref
+      .watch(cloudFirebaseServiceProvider)
+      .collectionStream(path: FirestorePath.Orders());
 });

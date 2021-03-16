@@ -16,6 +16,10 @@ class FormModel {
 
   int get sectionsNumber => model['sections'].length;
 
+  Map<String, dynamic> getSectionByIndex(int index) {
+    return model['sections'][index];
+  }
+
   int getPointsNumberInSection(int indSec) =>
       model['sections'][indSec]['points'].length;
 
@@ -103,6 +107,7 @@ class FormModel {
     });
     newModel['sections'] = newSections;
     newModel['order'] = order;
+    newModel['type'] = type;
     newModel['config'] = model['config'];
     newModel['headers'] = {'title' : _getChecklistTitle(order, type)};
     model = newModel;

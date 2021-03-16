@@ -1,6 +1,7 @@
 import 'package:eti_crm_app/forms/create_form_body.dart';
 import 'package:eti_crm_app/forms/edit_form_extract_arg.dart';
 import 'package:eti_crm_app/forms/edit_form_presenter.dart';
+import 'package:eti_crm_app/ui/reusable_widgets/checklist_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,16 +14,7 @@ class CreateFormParentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final titleText = context.read(editFormPresenterProvider).titleText;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(titleText),
-        actions: <Widget>[
-          FlatButton.icon(
-            onPressed: () => Navigator.pushNamedAndRemoveUntil(context, '/', (r)=>false),
-            icon: Icon(Icons.home),
-            label: Text(''),
-          )
-        ],
-      ),
+      appBar: ChecklistAppBar(titleText: titleText),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save),
         onPressed: () async {
@@ -40,3 +32,4 @@ class CreateFormParentPage extends StatelessWidget {
     );
   }
 }
+

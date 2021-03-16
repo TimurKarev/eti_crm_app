@@ -3,9 +3,8 @@ import 'package:flutter/foundation.dart';
 
 class CloudFirebaseService {
   Stream<List<String>> collectionStream({@required String path}) {
-    Stream<QuerySnapshot> snapshot = FirebaseFirestore.instance
-        .collection(path)
-        .snapshots();
+    Stream<QuerySnapshot> snapshot =
+        FirebaseFirestore.instance.collection(path).snapshots();
 
     return snapshot.map((snap) {
       List<String> result = [];
@@ -53,9 +52,8 @@ class CloudFirebaseService {
     return reference.then((value) => value.data());
   }
 
-  Future<void> setDocument({@required String path, @required  Map<String, dynamic> data}) async {
+  Future<void> setDocument(
+      {@required String path, @required Map<String, dynamic> data}) async {
     await FirebaseFirestore.instance.doc(path).set(data);
   }
-
 }
-

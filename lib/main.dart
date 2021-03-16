@@ -1,4 +1,4 @@
-import 'package:eti_crm_app/forms/create_checklist_extract_arg.dart';
+import 'package:eti_crm_app/forms/checklist_extract_arg.dart';
 import 'package:eti_crm_app/forms/edit_form_extract_arg.dart';
 import 'package:eti_crm_app/ui/landing_page.dart';
 import 'package:eti_crm_app/ui/order_page.dart';
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => LandingPage(),
         '/order-detail': (context) => OrderPage(),
         EditFormExtractArg.routeName: (context) => EditFormExtractArg(),
-        CreateChecklistExtractArg.routeName: (context) => CreateChecklistExtractArg(),
+        ChecklistExtractArg.routeName: (context) => ChecklistExtractArg(),
       },
 //      home: LandingPage(),
     );
