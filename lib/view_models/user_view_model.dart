@@ -24,7 +24,9 @@ class UserViewModel extends ChangeNotifier {
   }
 
   UserModel get userModel => _userModel;
+
   String get uid => _userModel.uid;
+
   String get email => _userModel.email;
 
   //TODO: Переделать в поток и убрать разницу во времени и бесполезные обновления
@@ -32,6 +34,7 @@ class UserViewModel extends ChangeNotifier {
     AsyncValue<User> userStream = ref.watch(authStateChangeProvider);
     userStream.when(
       data: (user) async {
+        print('state changed');
         _userModel.updateFromUser(user);
         if (uid != null) {
           final userSnapshot = await _getUserPrefFromDataBase();
@@ -51,20 +54,36 @@ class UserViewModel extends ChangeNotifier {
   }
 
   void signIn({String email, String password}) {
-    ref.read(authProvider).signInEmailAndPassword(email: email, password: password);
+    ref
+        .read(authProvider)
+        .signInEmailAndPassword(email: email, password: password);
+  }
+
+  Future<void> register({
+    @required String name,
+    @required String email,
+    @required String password,
+  }) async {
+    await ref
+        .read(authProvider)
+        .createUserWithEmailAndPassword(email: email, password: password);
+    notifyListeners();
   }
 
   //TODO: Нужен серьезный рефакторинг
   Future<DocumentSnapshot> _getUserPrefFromDataBase() async {
-    final DocumentReference reference = FirebaseFirestore.instance.doc(FirestorePath.user(uid));
+    final DocumentReference reference =
+        FirebaseFirestore.instance.doc(FirestorePath.user(uid));
     DocumentSnapshot snapshot;
     try {
       snapshot = await reference.get();
-      if(snapshot.data() == null) {
-        await reference.set({'security_group' : ['not_assigned']});
+      if (snapshot.data() == null) {
+        await reference.set({
+          'security_group': ['not_assigned']
+        });
         snapshot = await reference.get();
-        if(snapshot.data() == null) {
-          throw('Can not read user info from database');
+        if (snapshot.data() == null) {
+          throw ('Can not read user info from database');
         }
       }
     } catch (e) {

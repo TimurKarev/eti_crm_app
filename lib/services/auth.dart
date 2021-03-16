@@ -24,7 +24,7 @@ class CloudFirebaseAuth {
   }
 
   Future<void> createUserWithEmailAndPassword(
-      String email, String password) async {
+  {String email, String password}) async {
     final userCredential = await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,

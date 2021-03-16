@@ -28,6 +28,12 @@ class DataTablePage extends ConsumerWidget {
               },
               icon: Icon(Icons.settings),
               label: Text('Admin')),
+          FlatButton.icon(
+              onPressed: () {
+                context.read(userViewModelProvider).signOut();
+              },
+              icon: Icon(Icons.logout),
+              label: Text('Выйти')),
         ],
       ),
       body: Column(children: [
