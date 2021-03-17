@@ -60,6 +60,7 @@ class LoginPage extends ConsumerWidget {
                       context: context,
                       email: _emailController.text,
                       password: _passwordController.text);
+                  Navigator.pushNamedAndRemoveUntil(context, '/', (r) => false);
                 },
                 child: Text('Войти'),
               ),

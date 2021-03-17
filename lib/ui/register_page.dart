@@ -3,7 +3,7 @@ import 'package:eti_crm_app/ui/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RegistrationPage extends ConsumerWidget {
+class RegistrationPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
@@ -19,7 +19,7 @@ class RegistrationPage extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, watch) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Зарегестрировать нового пользователя'),
@@ -58,11 +58,15 @@ class RegistrationPage extends ConsumerWidget {
               height: 40.0,
               child: ElevatedButton(
                 onPressed: () async {
-                  await _register(
-                      context: context,
-                      name: _nameController.text,
-                      email: _emailController.text,
-                      password: _passwordController.text);
+                  try {
+                    await _register(
+                        context: context,
+                        name: _nameController.text,
+                        email: _emailController.text,
+                        password: _passwordController.text);
+                  } finally {
+                    Navigator.pushNamedAndRemoveUntil(context, '/', (r) => false);
+                  }
                 },
                 child: Text('Зарегестрироваться'),
               ),

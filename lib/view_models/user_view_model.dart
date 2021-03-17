@@ -39,11 +39,13 @@ class UserViewModel extends ChangeNotifier {
       print('stream user change');
       userModel.updateFromUser(data);
       yield userModel;
-    }, loading: () async* { yield userModel;}, error: (e,_) async* { yield userModel;} );
-
+    }, loading: () async* {
+      yield userModel;
+    }, error: (e, _) async* {
+      yield userModel;
+    });
   }
 
-  //TODO: Переделать в поток и убрать разницу во времени и бесполезные обновления
   void _authStateChangeListener() {
     AsyncValue<User> userStream = ref.watch(authStateChangeProvider);
     userStream.when(
