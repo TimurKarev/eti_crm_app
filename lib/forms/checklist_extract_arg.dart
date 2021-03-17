@@ -3,6 +3,7 @@ import 'package:eti_crm_app/providers/providers.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
 import 'package:eti_crm_app/ui/checklists/edit_checklist_page.dart';
 import 'package:eti_crm_app/ui/checklists/view_checklist_page.dart';
+import 'package:eti_crm_app/ui/security/checklist_security.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/foundation.dart';
@@ -33,13 +34,13 @@ class ChecklistExtractArg extends ConsumerWidget {
 
     if (args.action == ChecklistArguments.CHECKLIST_ACTION_CREATE) {
       try {
+        //TODO сделать функцию для получения виджета ...ChecklistPage и проверять права до обращения к базе
         _createChecklist(context, args.type, args.orderNum).whenComplete(() =>
-        Navigator.pushNamed(
-            context, ChecklistExtractArg.routeName,
-            arguments: ChecklistArguments(
-                orderNum: args.orderNum,
-                action: ChecklistArguments.CHECKLIST_ACTION_VIEW,
-                type: args.type)));
+            Navigator.pushNamed(context, ChecklistExtractArg.routeName,
+                arguments: ChecklistArguments(
+                    orderNum: args.orderNum,
+                    action: ChecklistArguments.CHECKLIST_ACTION_VIEW,
+                    type: args.type)));
       } catch (e) {
         return Container(child: Text('${e.toString()}'));
       }
@@ -49,9 +50,11 @@ class ChecklistExtractArg extends ConsumerWidget {
               orderNum: args.orderNum, type: args.type)))
           .when(
               data: (data) {
-                return ViewChecklistPage(
-                    presenter:
-                        ChecklistPresenter(model: FormModel(model: data)));
+                return ChecklistSecurity.checklistView(
+                  child: ViewChecklistPage(
+                      presenter:
+                          ChecklistPresenter(model: FormModel(model: data))),
+                );
               },
               loading: () => CircularProgressIndicator(),
               error: (e, _) {
@@ -60,19 +63,21 @@ class ChecklistExtractArg extends ConsumerWidget {
     }
     if (args.action == ChecklistArguments.CHECKLIST_ACTION_EDIT) {
       return watch(futureDocumentProvider(FirestorePath.checklist(
-          orderNum: args.orderNum, type: args.type)))
+              orderNum: args.orderNum, type: args.type)))
           .when(
-          data: (data) {
-            return EditChecklistPage(
-                presenter:
-                ChecklistPresenter(model: FormModel(model: data)));
-          },
-          loading: () => CircularProgressIndicator(),
-          error: (e, _) {
-            return Text(e.toString());
-          });
+              data: (data) {
+                return ChecklistSecurity.checklistEdit(
+                  child: EditChecklistPage(
+                      presenter:
+                          ChecklistPresenter(model: FormModel(model: data))),
+                );
+              },
+              loading: () => CircularProgressIndicator(),
+              error: (e, _) {
+                return Text(e.toString());
+              });
     }
-    return Container();
+    return CircularProgressIndicator();
   }
 
   Future<void> _createChecklist(

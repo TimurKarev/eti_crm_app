@@ -29,6 +29,8 @@ class UserViewModel {
 
   String get email => _userModel.email;
 
+  Set<String> get roles => _userModel.roles;
+
   Stream<UserModel> userModelStream() {
     final user = ref.watch(authStateChangeProvider);
     return user.when(data: (data) async* {
