@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eti_crm_app/models/user_model.dart';
+import 'package:eti_crm_app/providers/providers.dart';
 import 'package:eti_crm_app/services/auth.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,7 +15,7 @@ final authStateChangeProvider = StreamProvider<User>((ref) {
   return auth.authStateChanges();
 });
 
-class UserViewModel extends ChangeNotifier {
+class UserViewModel {
   ProviderReference ref;
   UserModel _userModel = UserModel();
 
@@ -31,13 +31,8 @@ class UserViewModel extends ChangeNotifier {
 
   Stream<UserModel> userModelStream() {
     final user = ref.watch(authStateChangeProvider);
-    // return user.map((event) {
-    //   userModel.updateFromUser(event);
-    //   return userModel;
-    // });
     return user.when(data: (data) async* {
-      print('stream user change');
-      userModel.updateFromUser(data);
+      await _updateUserModel(data);
       yield userModel;
     }, loading: () async* {
       yield userModel;
@@ -46,26 +41,32 @@ class UserViewModel extends ChangeNotifier {
     });
   }
 
-  void _authStateChangeListener() {
-    AsyncValue<User> userStream = ref.watch(authStateChangeProvider);
-    userStream.when(
-      data: (user) async {
-        print('state changed');
-        _userModel.updateFromUser(user);
-        if (uid != null) {
-          final userSnapshot = await _getUserPrefFromDataBase();
-          _userModel.updateFromDataBase(userSnapshot.data());
-        }
-        notifyListeners();
-      },
-      loading: () {},
-      error: (e, stack) {
-        print("${e.toString()}");
-      },
-    );
+  Future<void> _updateUserModel(User user) async {
+    if (user?.uid == null) {
+      return null;
+    }
+    userModel.uid = user.uid;
+    userModel.email = user.email;
+    try {
+      await ref
+          .read(cloudFirebaseServiceProvider)
+          .getDocument(path: FirestorePath.user(user.uid))
+          .then((value) {
+            print(value.toString());
+        userModel.name = value['name'];
+        final List<String> roles = value['roles'].cast<String>();
+        userModel.roles = roles.toSet();
+      });
+    } catch (e) {
+      print(e.toString());
+      userModel.uid = null;
+      userModel.email = null;
+      userModel.name = 'Незнакомец';
+      userModel.roles = {'not_assigned'};
+    }
   }
 
-  Future<void> signOut() async {
+   Future<void> signOut() async {
     await ref.read(authProvider).signOut();
   }
 
@@ -80,31 +81,14 @@ class UserViewModel extends ChangeNotifier {
     @required String email,
     @required String password,
   }) async {
-    await ref
+    final userCredentials = await ref
         .read(authProvider)
         .createUserWithEmailAndPassword(email: email, password: password);
-    notifyListeners();
-  }
-
-  //TODO: Нужен серьезный рефакторинг
-  Future<DocumentSnapshot> _getUserPrefFromDataBase() async {
-    final DocumentReference reference =
-        FirebaseFirestore.instance.doc(FirestorePath.user(uid));
-    DocumentSnapshot snapshot;
-    try {
-      snapshot = await reference.get();
-      if (snapshot.data() == null) {
-        await reference.set({
-          'security_group': ['not_assigned']
-        });
-        snapshot = await reference.get();
-        if (snapshot.data() == null) {
-          throw ('Can not read user info from database');
-        }
-      }
-    } catch (e) {
-      print(e.toString());
-    }
-    return snapshot;
+    final data = {
+      'name': name,
+      'roles': {'not_assigned'}
+    };
+    await ref.read(cloudFirebaseServiceProvider).setDocument(
+        path: FirestorePath.user(userCredentials.user.uid), data: data);
   }
 }

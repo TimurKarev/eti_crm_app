@@ -6,7 +6,7 @@ import 'package:eti_crm_app/view_models/checklist_data_table_view_model.dart';
 import 'package:eti_crm_app/view_models/user_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final userViewModelProvider = ChangeNotifierProvider<UserViewModel>((ref) {
+final userViewModelProvider = Provider<UserViewModel>((ref) {
   return UserViewModel(ref: ref);
 });
 
@@ -14,7 +14,8 @@ final userModelStreamProvider = StreamProvider<UserModel>((ref) {
   return ref.watch(userViewModelProvider).userModelStream();
 });
 
-final cloudFirebaseServiceProvider = Provider((ref) => CloudFirebaseService());
+final cloudFirebaseServiceProvider =
+    Provider<CloudFirebaseService>((ref) => CloudFirebaseService());
 
 final futureDocumentProvider =
     FutureProvider.family<Map<String, dynamic>, String>((ref, String path) {

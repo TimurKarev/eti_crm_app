@@ -1,8 +1,6 @@
 import 'package:eti_crm_app/forms/form_model.dart';
-import 'package:eti_crm_app/providers/providers.dart';
 import 'package:eti_crm_app/services/cloud_firebase_service.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
-import 'package:riverpod/src/framework.dart';
 
 class ChecklistPresenter {
   FormModel model;

@@ -1,17 +1,11 @@
+import 'package:eti_crm_app/services/cloud_firebase_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class UserModel {
   String email;
-  String name;
+  String name = 'Незнакомец';
   String uid;
-  List<String> roles = ['not_assigned'];
+  Set<String> roles = {'not_assigned'};
 
-  void updateFromUser(User user) {
-    uid = user?.uid;
-    email = user?.email;
-  }
-
-  void updateFromDataBase(Map<String, dynamic> dataBaseData) {
-    roles = dataBaseData['security_group'].cast<String>();
-  }
 }
