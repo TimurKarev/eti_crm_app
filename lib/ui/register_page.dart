@@ -65,6 +65,7 @@ class RegistrationPage extends StatelessWidget {
                         email: _emailController.text,
                         password: _passwordController.text);
                   } finally {
+                    print('try to push');
                     Navigator.pushNamedAndRemoveUntil(context, '/', (r) => false);
                   }
                 },

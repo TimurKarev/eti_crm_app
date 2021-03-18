@@ -54,10 +54,12 @@ class UserViewModel {
           .read(cloudFirebaseServiceProvider)
           .getDocument(path: FirestorePath.user(user.uid))
           .then((value) {
-            print(value.toString());
-        userModel.name = value['name'];
-        final List<String> roles = value['roles'].cast<String>();
-        userModel.roles = roles.toSet();
+        print(value.toString());
+        if (value != null) {
+          userModel.name = value['name'];
+          final List<String> roles = value['roles'].cast<String>();
+          userModel.roles = roles.toSet();
+        }
       });
     } catch (e) {
       print(e.toString());
@@ -68,7 +70,7 @@ class UserViewModel {
     }
   }
 
-   Future<void> signOut() async {
+  Future<void> signOut() async {
     await ref.read(authProvider).signOut();
   }
 
