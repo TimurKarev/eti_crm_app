@@ -1,4 +1,3 @@
-import 'package:eti_crm_app/forms/checklist_extract_arg.dart';
 import 'package:eti_crm_app/models/check_list_data_table_model.dart';
 import 'package:eti_crm_app/models/user_model.dart';
 import 'package:eti_crm_app/services/checklist_service.dart';

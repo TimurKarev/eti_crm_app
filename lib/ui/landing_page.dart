@@ -21,10 +21,8 @@ class LandingPage extends ConsumerWidget {
     return watch(userModelStreamProvider).when(
         data: (model) {
           if (model?.uid == null) {
-            print('user change   ${model.uid}');
             return LoginPage();
           }
-          print('user change   ${model.uid}');
           return DataTablePage();
         },
         loading: () => CircularProgressIndicator(),
