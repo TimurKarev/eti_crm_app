@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:eti_crm_app/forms/checklist_extract_arg.dart';
 import 'package:eti_crm_app/forms/point_forms/choice_form_widget.dart';
 import 'package:eti_crm_app/forms/point_forms/integer_form_widget.dart';

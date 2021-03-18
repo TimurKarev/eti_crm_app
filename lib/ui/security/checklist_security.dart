@@ -8,10 +8,6 @@ class RolesConst {
   static const String CHECKLIST_VIEWER = 'checklist_viewer';
   static const String CHECKLIST_EDITOR = 'checklist_editor';
   static const String CHECKLIST_CREATOR = 'checklist_creator';
-
-  static const String ORDER_VIEWER = 'order_viewer';
-  static const String ORDER_EDITOR = 'order_editor';
-  static const String ORDER_CREATOR = 'order_creator';
 }
 
 class ChecklistSecurity extends StatelessWidget {
@@ -51,11 +47,21 @@ class ChecklistSecurity extends StatelessWidget {
       child: child,
     );
   }
+
   factory ChecklistSecurity.checklistEdit({@required child}) {
     final message = 'недостаточно прав';
     return ChecklistSecurity(
       errorMessage: message,
       roles: {RolesConst.CHECKLIST_EDITOR},
+      child: child,
+    );
+  }
+
+  factory ChecklistSecurity.checklistCreate({@required child}) {
+    final message = 'недостаточно прав';
+    return ChecklistSecurity(
+      errorMessage: message,
+      roles: {RolesConst.CHECKLIST_CREATOR},
       child: child,
     );
   }

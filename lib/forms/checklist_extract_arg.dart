@@ -10,6 +10,14 @@ import 'package:flutter/foundation.dart';
 
 import 'form_model.dart';
 
+final createChecklistFutureProvider =
+    FutureProvider.family<void, ChecklistArguments>(
+        (ref, ChecklistArguments args) {
+  return ref
+      .read(checklistServiceProvider)
+      .createChecklist(args.type, args.orderNum);
+});
+
 class ChecklistArguments {
   static const CHECKLIST_ACTION_CREATE = 'checklist_create';
   static const CHECKLIST_ACTION_EDIT = 'checklist_edit';
@@ -29,37 +37,17 @@ class ChecklistExtractArg extends ConsumerWidget {
   static final routeName = '/checklist';
 
   @override
-  Widget build(BuildContext context, watch) {
+  Widget build(BuildContext context, ScopedReader watch) {
     final ChecklistArguments args = ModalRoute.of(context).settings.arguments;
 
     if (args.action == ChecklistArguments.CHECKLIST_ACTION_CREATE) {
-      try {
-        //TODO сделать функцию для получения виджета ...ChecklistPage и проверять права до обращения к базе
-        _createChecklist(context, args.type, args.orderNum).whenComplete(() =>
-            Navigator.pushNamed(context, ChecklistExtractArg.routeName,
-                arguments: ChecklistArguments(
-                    orderNum: args.orderNum,
-                    action: ChecklistArguments.CHECKLIST_ACTION_VIEW,
-                    type: args.type)));
-      } catch (e) {
-        return Container(child: Text('${e.toString()}'));
-      }
+      return ChecklistSecurity.checklistEdit(
+          child: _checklistCreateWidget(watch, args));
     }
     if (args.action == ChecklistArguments.CHECKLIST_ACTION_VIEW) {
-      return watch(futureDocumentProvider(FirestorePath.checklist(
-              orderNum: args.orderNum, type: args.type)))
-          .when(
-              data: (data) {
-                return ChecklistSecurity.checklistView(
-                  child: ViewChecklistPage(
-                      presenter:
-                          ChecklistPresenter(model: FormModel(model: data))),
-                );
-              },
-              loading: () => CircularProgressIndicator(),
-              error: (e, _) {
-                return Text(e.toString());
-              });
+      return ChecklistSecurity.checklistView(
+        child: _createChecklistWhenReturnViewWidget(watch, args),
+      );
     }
     if (args.action == ChecklistArguments.CHECKLIST_ACTION_EDIT) {
       return watch(futureDocumentProvider(FirestorePath.checklist(
@@ -78,6 +66,31 @@ class ChecklistExtractArg extends ConsumerWidget {
               });
     }
     return CircularProgressIndicator();
+  }
+
+  Widget _checklistCreateWidget(ScopedReader watch, ChecklistArguments args) {
+    return watch(createChecklistFutureProvider(args)).when(
+        data: (_) {
+          return _createChecklistWhenReturnViewWidget(watch, args);
+        },
+        loading: () => CircularProgressIndicator(),
+        error: (e, _) {
+          return Text(e.toString());
+        });
+  }
+
+  Widget _createChecklistWhenReturnViewWidget(ScopedReader watch, ChecklistArguments args) {
+    return watch(futureDocumentProvider(
+            FirestorePath.checklist(orderNum: args.orderNum, type: args.type)))
+        .when(
+            data: (data) {
+              return ViewChecklistPage(
+                  presenter: ChecklistPresenter(model: FormModel(model: data)));
+            },
+            loading: () => CircularProgressIndicator(),
+            error: (e, _) {
+              return Text(e.toString());
+            });
   }
 
   Future<void> _createChecklist(
