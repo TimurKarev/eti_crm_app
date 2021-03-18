@@ -47,7 +47,12 @@ class ChecklistPresenter {
   List<dynamic> getChoiceVariantsByStringIndex(String pointIndex) =>
       model.getChoiceVariantsByStringIndex(pointIndex);
 
+  String getPointValueByStringIndex(String pointIndex, String value) =>
+      model.getChoiceLabelByPointIndexAndValue(pointIndex, value);
+
   Future<void> saveChecklist(CloudFirebaseService firebase) async {
-    await firebase.setDocument(path: FirestorePath.checklist(orderNum: orderNum, type: type), data: model.model);
+    await firebase.setDocument(
+        path: FirestorePath.checklist(orderNum: orderNum, type: type),
+        data: model.model);
   }
 }

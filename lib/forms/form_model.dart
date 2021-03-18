@@ -53,12 +53,20 @@ class FormModel {
     return result;
   }
 
+  String getChoiceLabelByPointIndexAndValue(String pointIndex, String value) {
+    final variants = getChoiceVariantsByStringIndex(pointIndex);
+    for (var variant in variants) {
+      if (variant['value'] == value) {
+        return variant['label'].toString();
+      }
+    }
+    return 'непонятка';
+  }
+
   String getPointValueByStringIndex(String strIndex) {
-    //print('Section = $sectionsNumber');
     for (var s = 0; s < sectionsNumber; s++) {
       for (var p = 0; p < getPointsNumberInSection(s); p++) {
         final point = getSectionPointByIndex(s, p);
-        //print(point.toString());
         if (point.containsKey('index')) {
           if (point['index'] == strIndex) return point['value'];
         }
@@ -86,19 +94,22 @@ class FormModel {
     return dict;
   }
 
-  void rebuildModelFromDict({@required Map<String, int> dict, @required String order, @required String type}) {
+  void rebuildModelFromDict(
+      {@required Map<String, int> dict,
+      @required String order,
+      @required String type}) {
     Map<String, dynamic> newModel = {};
     List<dynamic> newSections = [];
     final List<dynamic> sections = model['sections'];
-    sections.forEach((section)  {
+    sections.forEach((section) {
       final index = section['order_config_index'];
       if (index == null) {
         newSections.add(section);
       } else {
         final int sectionQuantity = dict[index] ?? 1;
         final label = section['label'];
-        for (var i=0; i<sectionQuantity; i++) {
-          final n = sectionQuantity > 1 ? ' N${i+1}' : '';
+        for (var i = 0; i < sectionQuantity; i++) {
+          final n = sectionQuantity > 1 ? ' N${i + 1}' : '';
           Map curSec = {...section};
           curSec['label'] = label + n;
           newSections.add(curSec);
@@ -109,12 +120,11 @@ class FormModel {
     newModel['order'] = order;
     newModel['type'] = type;
     newModel['config'] = model['config'];
-    newModel['headers'] = {'title' : _getChecklistTitle(order, type)};
+    newModel['headers'] = {'title': _getChecklistTitle(order, type)};
     model = newModel;
   }
 
   String _getChecklistTitle(String order, String type) {
     return 'Чеклист строительной части №$order';
   }
-
 }

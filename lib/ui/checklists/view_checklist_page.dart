@@ -8,13 +8,21 @@ import 'package:flutter/material.dart';
 class ViewChecklistPage extends StatefulWidget {
   final ChecklistPresenter presenter;
 
-  const ViewChecklistPage({Key key, this.presenter}) : super(key: key);
+  ViewChecklistPage({Key key, this.presenter}) : super(key: key);
 
   @override
   _ViewChecklistPageState createState() => _ViewChecklistPageState();
 }
 
 class _ViewChecklistPageState extends State<ViewChecklistPage> {
+  List<bool> expanded;
+
+  @override
+  void initState() {
+    super.initState();
+    expanded = List<bool>.filled(widget.presenter.sectionsNumber, false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,55 +46,27 @@ class _ViewChecklistPageState extends State<ViewChecklistPage> {
   }
 
   Widget _getBody(BuildContext context) {
-    // List<Widget> result = [];
-    // for (var sIndex = 0; sIndex < presenter.sectionsNumber; sIndex++) {
-    //   result.add(
-    //     Text(presenter.getSectionLabelByIndex(sIndex)),
-    //   );
-    //   for (var pIndex = 0;
-    //       pIndex < presenter.getPointsNumberInSection(sIndex);
-    //       pIndex++) {
-    //     final point = presenter.getSectionPointByIndex(sIndex, pIndex);
-    //     if (point['type'] == 'integer') {
-    //       result.add(IntegerFormWidget(
-    //           point: point,
-    //           sectionIndex: sIndex,
-    //           pointIndex: pIndex,
-    //           editable: false,
-    //           updateModelCallback: null));
-    //     }
-    //     if (point['type'] == 'choice') {
-    //       final variants = null;
-    //       result.add(ChoiceFormWidget(
-    //         point: point,
-    //         variants: variants,
-    //         sectionIndex: sIndex,
-    //         pointIndex: pIndex,
-    //         editable: false,
-    //         updateModelCallback: null,
-    //       ));
-    //     }
-    //   }
-    // }
     List<ExpansionPanel> listExpPanels = [];
-    for (var s=0; s<widget.presenter.sectionsNumber; s++) {
+    for (var s = 0; s < widget.presenter.sectionsNumber; s++) {
       List<Widget> listTiles = [];
-      for (var p=0; p<widget.presenter.getPointsNumberInSection(s); p++) {
+      for (var p = 0; p < widget.presenter.getPointsNumberInSection(s); p++) {
         final point = widget.presenter.getSectionPointByIndex(s, p);
-        print(point.toString());
+        final label = widget.presenter
+            .getPointValueByStringIndex(point['variant_index'], point['value']);
         listTiles.add(ListTile(
           title: Text(point['label']),
           subtitle: Text(point['comment']),
-          trailing: Text(point['value']),
+          trailing: Text(label),
         ));
       }
       listExpPanels.add(ExpansionPanel(
+        canTapOnHeader: true,
         headerBuilder: (BuildContext context, bool isExpanded) {
           return ListTile(
             title: Text(widget.presenter.getSectionLabelByIndex(s)),
           );
         },
-        isExpanded: true,
+        isExpanded: expanded[s],
         body: Container(
           child: Column(
             children: listTiles,
@@ -96,7 +76,9 @@ class _ViewChecklistPageState extends State<ViewChecklistPage> {
     }
     return ExpansionPanelList(
       expansionCallback: (int index, bool isExpanded) {
-        setState(() {});
+        setState(() {
+          expanded[index] = !isExpanded;
+        });
       },
       children: listExpPanels,
     );
