@@ -8,16 +8,6 @@ import 'checklists/data_table_page.dart';
 class LandingPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    // final userViewModel = watch(userViewModelProvider);
-    // Widget widget = CircularProgressIndicator();
-    // if (userViewModel.userModel.uid == null) {
-    //   widget = LoginPage();
-    // } else {
-    //   widget = DataTablePage();
-    //   //widget = MyPage();
-    // }
-    //
-    // return widget;
     return watch(userModelStreamProvider).when(
         data: (model) {
           if (model?.uid == null) {
