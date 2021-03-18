@@ -61,18 +61,21 @@ class OrderConfigPattern {
         "points": [
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Соответствие компановке",
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             "label": "АСЧ",
             'value': 'unchecked',
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Тех задание"
@@ -84,42 +87,49 @@ class OrderConfigPattern {
         "points": [
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Проверка металлоизделий"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Цветовая гамма металлоконструкций"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Проверка закладных"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Проверка комплектующих"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Наличие замков"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Наличие рымов"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Наличие дверей"
@@ -132,12 +142,14 @@ class OrderConfigPattern {
         "points": [
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Закладные элементы на основания модуля"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Закладные элементы на стены модуля"
@@ -150,12 +162,14 @@ class OrderConfigPattern {
         "points": [
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Проверка опалубки"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Качество бетонной смеси"
@@ -167,24 +181,28 @@ class OrderConfigPattern {
         "points": [
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Наплавление изопласта"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Отделка"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Наличие освещения"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Контур заземления"
@@ -197,12 +215,14 @@ class OrderConfigPattern {
         "points": [
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Линейные размеры"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Диагональные размеры"
@@ -215,18 +235,21 @@ class OrderConfigPattern {
         "points": [
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Для контура заземлений"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Для вводов кабелей"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Для прокладки межблочный соединений"
@@ -239,18 +262,21 @@ class OrderConfigPattern {
         "points": [
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Закладные элементы на основания модуля"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Закладные элементы на стены модуля"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Закладные элементы на крышу модуля"
@@ -263,12 +289,14 @@ class OrderConfigPattern {
         "points": [
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Проверка опалубки"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Качество бетонной смеси"
@@ -281,12 +309,14 @@ class OrderConfigPattern {
         "points": [
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Линейные размеры"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Диагональные размеры"
@@ -299,18 +329,21 @@ class OrderConfigPattern {
         "points": [
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Для контура заземлений"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Для вводов кабелей"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Для прокладки межблочный соединений"
@@ -322,30 +355,35 @@ class OrderConfigPattern {
         "points": [
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Вторичные отделочные работы"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Малярные работы"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Штукатурные работы"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Цветовая гамма фасада"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Шумоизоляция"
@@ -357,18 +395,21 @@ class OrderConfigPattern {
         "points": [
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Соответствие с АСЧ и чертежами"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Проверка надписей"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Паспорные таблички на дверях"
@@ -380,24 +421,28 @@ class OrderConfigPattern {
         "points": [
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Наличие контура"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Проверка сварочных швов"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Покраска контура заземления"
           },
           {
             'variant_index': 'four_choice_variants',
+            'comment': '',
             "type": "choice",
             'value': 'unchecked',
             "label": "Наличие переносного заземления"

@@ -35,6 +35,7 @@ dependencies:
   flutter_riverpod: ^0.12.4
   state_notifier: ^0.7.0
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
