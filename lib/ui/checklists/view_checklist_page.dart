@@ -1,8 +1,7 @@
 import 'package:eti_crm_app/forms/checklist_extract_arg.dart';
-import 'package:eti_crm_app/forms/point_forms/choice_form_widget.dart';
-import 'package:eti_crm_app/forms/point_forms/integer_form_widget.dart';
 import 'package:eti_crm_app/presenters/checklist_presenter.dart';
 import 'package:eti_crm_app/ui/reusable_widgets/checklist_app_bar.dart';
+import 'package:eti_crm_app/ui/reusable_widgets/four_point_chip.dart';
 import 'package:flutter/material.dart';
 
 class ViewChecklistPage extends StatefulWidget {
@@ -56,14 +55,21 @@ class _ViewChecklistPageState extends State<ViewChecklistPage> {
         listTiles.add(ListTile(
           title: Text(point['label']),
           subtitle: Text(point['comment']),
-          trailing: Text(label),
+          trailing: FourPointChip(
+            value: point['value'],
+            label: label,
+          ),
         ));
       }
       listExpPanels.add(ExpansionPanel(
         canTapOnHeader: true,
         headerBuilder: (BuildContext context, bool isExpanded) {
           return ListTile(
-            title: Text(widget.presenter.getSectionLabelByIndex(s)),
+            trailing: Icon(Icons.check_circle, color: Colors.red,),
+            title: Text(
+              widget.presenter.getSectionLabelByIndex(s),
+              style: Theme.of(context).textTheme.headline6,
+            ),
           );
         },
         isExpanded: expanded[s],

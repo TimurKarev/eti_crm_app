@@ -94,6 +94,11 @@ class FormModel {
     return dict;
   }
 
+  Set<String> getSectionStatusByIndex(int secInd) {
+    Set<String> result = {};
+    final section = get
+  }
+
   void rebuildModelFromDict(
       {@required Map<String, int> dict,
       @required String order,
