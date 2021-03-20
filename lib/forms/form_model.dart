@@ -1,3 +1,4 @@
+import 'package:eti_crm_app/models/const/four_point_const.dart';
 import 'package:flutter/foundation.dart';
 
 class FormModel {
@@ -94,9 +95,18 @@ class FormModel {
     return dict;
   }
 
-  Set<String> getSectionStatusByIndex(int secInd) {
-    Set<String> result = {};
-    final section = get
+  String getSectionStatusByIndex(int secInd) {
+    String result = FourPointValues.APPROVED;
+    final section = getSectionByIndex(secInd);
+    for (var point in section['points']) {
+      if (point['value'] == FourPointValues.COMMENT) {
+        return FourPointValues.COMMENT;
+      }
+      if (point['value'] == FourPointValues.UNCHECKED) {
+        result = FourPointValues.UNCHECKED;
+      }
+    }
+    return result;
   }
 
   void rebuildModelFromDict(

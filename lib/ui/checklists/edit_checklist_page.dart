@@ -1,76 +1,113 @@
 import 'package:eti_crm_app/forms/checklist_extract_arg.dart';
-import 'package:eti_crm_app/forms/point_forms/choice_form_widget.dart';
-import 'package:eti_crm_app/forms/point_forms/integer_form_widget.dart';
+import 'package:eti_crm_app/models/const/four_point_const.dart';
 import 'package:eti_crm_app/presenters/checklist_presenter.dart';
-import 'package:eti_crm_app/providers/providers.dart';
 import 'package:eti_crm_app/ui/reusable_widgets/checklist_app_bar.dart';
+import 'package:eti_crm_app/ui/reusable_widgets/four_point_chip.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EditChecklistPage extends StatelessWidget {
+class EditChecklistPage extends StatefulWidget {
   final ChecklistPresenter presenter;
 
-  const EditChecklistPage({Key key, this.presenter}) : super(key: key);
+  EditChecklistPage({Key key, this.presenter}) : super(key: key);
+
+  @override
+  _EditChecklistPageState createState() => _EditChecklistPageState();
+}
+
+class _EditChecklistPageState extends State<EditChecklistPage> {
+  List<bool> expanded;
+
+  @override
+  void initState() {
+    super.initState();
+    expanded = List<bool>.filled(widget.presenter.sectionsNumber, false);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ChecklistAppBar(titleText: presenter.barTitle),
+      appBar: ChecklistAppBar(titleText: 'widget.presenter.barTitle'),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
-        child: ListView(children: _getBody(context)),
+        child:
+            SingleChildScrollView(child: Container(child: _getBody(context))),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save),
-        onPressed: () async {
-          try {
-            await presenter.saveChecklist(context.read(cloudFirebaseServiceProvider));
-            Navigator.pushNamedAndRemoveUntil(
-                context, ChecklistExtractArg.routeName, (r) => false,
-                arguments: ChecklistArguments(
-                    orderNum: presenter.orderNum,
-                    action: ChecklistArguments.CHECKLIST_ACTION_VIEW,
-                    type: presenter.type));
-          } catch (e) {
-            print(e.toString());
-          }
+        onPressed: () {
+          Navigator.pushNamed(context, ChecklistExtractArg.routeName,
+              arguments: ChecklistArguments(
+                  orderNum: widget.presenter.orderNum,
+                  action: ChecklistArguments.CHECKLIST_ACTION_VIEW,
+                  type: widget.presenter.type));
         },
       ),
     );
   }
 
-  List<Widget> _getBody(BuildContext context) {
-    List<Widget> result = [];
-    for (var sIndex = 0; sIndex < presenter.sectionsNumber; sIndex++) {
-      result.add(
-        Text(presenter.getSectionLabelByIndex(sIndex)),
-      );
-      for (var pIndex = 0;
-          pIndex < presenter.getPointsNumberInSection(sIndex);
-          pIndex++) {
-        final point = presenter.getSectionPointByIndex(sIndex, pIndex);
-        if (point['type'] == 'integer') {
-          result.add(IntegerFormWidget(
-              point: point,
-              sectionIndex: sIndex,
-              pointIndex: pIndex,
-              editable: true,
-              updateModelCallback: null));
-        }
-        if (point['type'] == 'choice') {
-          final variants =
-              presenter.getChoiceVariantsByStringIndex(point['variant_index']);
-          result.add(ChoiceFormWidget(
-            point: point,
-            variants: variants,
-            sectionIndex: sIndex,
-            pointIndex: pIndex,
-            editable: true,
-            updateModelCallback: null,
-          ));
-        }
+  Widget _getBody(BuildContext context) {
+    List<ExpansionPanel> listExpPanels = [];
+    for (var s = 0; s < widget.presenter.sectionsNumber; s++) {
+      List<Widget> listTiles = [];
+      for (var p = 0; p < widget.presenter.getPointsNumberInSection(s); p++) {
+        final point = widget.presenter.getSectionPointByIndex(s, p);
+        final label = widget.presenter
+            .getPointValueByStringIndex(point['variant_index'], point['value']);
+        listTiles.add(ListTile(
+          title: Text(point['label']),
+          subtitle: Text(point['comment']),
+          trailing: _dropdownButton(),
+        ));
       }
+      //final status = widget.presenter.model.getSectionStatusByIndex(s);
+      listExpPanels.add(ExpansionPanel(
+        canTapOnHeader: true,
+        headerBuilder: (BuildContext context, bool isExpanded) {
+          return ListTile(
+            title: Text(
+              widget.presenter.getSectionLabelByIndex(s) +
+                  ' ${widget.presenter.model.getSectionStatusByIndex(s)}',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          );
+        },
+        isExpanded: expanded[s],
+        body: Container(
+          child: Column(
+            children: listTiles,
+          ),
+        ),
+      ));
     }
-    return result;
+    return ExpansionPanelList(
+      expansionCallback: (int index, bool isExpanded) {
+        setState(() {
+          expanded[index] = !isExpanded;
+        });
+      },
+      children: listExpPanels,
+    );
+  }
+
+  Widget _dropdownButton() {
+    return DropdownButton<String>(
+      value: 'One',
+      icon: const Icon(Icons.arrow_downward),
+      iconSize: 24,
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+      onChanged: (String newValue) {},
+      items: <String>['One', 'Two', 'Free', 'Four']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
   }
 }

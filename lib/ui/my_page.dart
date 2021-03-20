@@ -65,39 +65,37 @@ class _MyPageState extends State<MyPage> {
               title: Text('item.headerValue'),
             );
           },
-          body: ListTile(
-              title: Text('item.expandedValue'),
-              subtitle:
-                  const Text('To delete this panel, tap the trash can icon'),
-              trailing: const Icon(Icons.delete),
-              onTap: () {}),
-          isExpanded: false,
-        ),
-        ExpansionPanel(
-          headerBuilder: (BuildContext context, bool isExpanded) {
-            return ListTile(
-              title: Text('item.headerValue'),
-            );
-          },
-          body: Container(
-            child: Column(children: [
-              ListTile(
-                title: Text('item.expandedValue'),
-                subtitle:
-                    const Text('To delete this panel, tap the trash can icon'),
-                trailing: const Icon(Icons.delete),
-              ),
-              ListTile(
-                title: Text('item.expandedValue'),
-                subtitle:
-                const Text('To delete this panel, tap the trash can icon'),
-                trailing: const Icon(Icons.delete),
-              ),
-            ]),
-          ),
           isExpanded: true,
+          body: ListTile(
+            title: Text('item.headerValue'),
+            trailing: _getButton(),
+          ),
         ),
       ],
+    );
+  }
+
+  Widget _getButton() {
+    /// Flutter code sample for DropdownButton
+
+    return DropdownButton<String>(
+      value: 'One',
+      icon: const Icon(Icons.arrow_downward),
+      iconSize: 24,
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+      onChanged: (String newValue) {},
+      items: <String>['One', 'Two', 'Free', 'Four']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
 }

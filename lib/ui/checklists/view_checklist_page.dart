@@ -1,4 +1,5 @@
 import 'package:eti_crm_app/forms/checklist_extract_arg.dart';
+import 'package:eti_crm_app/models/const/four_point_const.dart';
 import 'package:eti_crm_app/presenters/checklist_presenter.dart';
 import 'package:eti_crm_app/ui/reusable_widgets/checklist_app_bar.dart';
 import 'package:eti_crm_app/ui/reusable_widgets/four_point_chip.dart';
@@ -61,13 +62,18 @@ class _ViewChecklistPageState extends State<ViewChecklistPage> {
           ),
         ));
       }
+      final status = widget.presenter.model.getSectionStatusByIndex(s);
       listExpPanels.add(ExpansionPanel(
         canTapOnHeader: true,
         headerBuilder: (BuildContext context, bool isExpanded) {
           return ListTile(
-            trailing: Icon(Icons.check_circle, color: Colors.red,),
+            trailing: Icon(
+              FourPointValues.valueMap[status]['icon'],
+              color: FourPointValues.valueMap[status]['color'],
+            ),
             title: Text(
-              widget.presenter.getSectionLabelByIndex(s),
+              widget.presenter.getSectionLabelByIndex(s) +
+                  ' ${widget.presenter.model.getSectionStatusByIndex(s)}',
               style: Theme.of(context).textTheme.headline6,
             ),
           );
