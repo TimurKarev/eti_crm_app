@@ -17,11 +17,25 @@ class CreateFormBody extends ConsumerWidget {
     //print('build ${stateNotifier.state.isOrderExistError}');
     if (stateNotifier.state.isOrderExistError) {
       //print('Error');
-      result.add(Text(stateNotifier.state.errorMessage));
+      result.add(
+        Text(
+          stateNotifier.state.errorMessage,
+          style: TextStyle(
+              backgroundColor: Colors.redAccent.shade50, color: Colors.black),
+        ),
+      );
     }
     for (var sIndex = 0; sIndex < presenter.sectionsNumber; sIndex++) {
       result.add(
-        Text(presenter.getSectionLabelByIndex(sIndex)),
+        SizedBox(
+          height: 10.0,
+        ),
+      );
+      result.add(
+        Text(
+          presenter.getSectionLabelByIndex(sIndex),
+          style: Theme.of(context).textTheme.headline6,
+        ),
       );
       for (var pIndex = 0;
           pIndex < presenter.getPointsNumberInSection(sIndex);
@@ -49,6 +63,17 @@ class CreateFormBody extends ConsumerWidget {
         }
       }
     }
-    return Container(child: Column(children: result));
+    return SingleChildScrollView(
+      child: Container(
+          child: Padding(
+        padding: const EdgeInsets.fromLTRB(
+          250.0,
+          10.0,
+          250.0,
+          0.0,
+        ),
+        child: Column(children: result),
+      )),
+    );
   }
 }

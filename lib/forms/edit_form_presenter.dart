@@ -43,22 +43,23 @@ class EditFormPresenter extends ChangeNotifier {
     print('state ' + state.action);
   }
 
-  Future<bool> _isOrderExist() async {
-    var orders = read(orderListStreamProvider).data.value;
-    //print('is order exist');
-    if (orders.contains(model.firstElementValue)) {
-      //print('True');
-      return true;
-    } else {
-      return false;
-    }
+  AsyncValue<bool> _isOrderExist() {
+    var asyncOrders = read(orderListStreamProvider);
+    return asyncOrders.whenData((orders) {
+      if (orders.contains(model.firstElementValue)) {
+        //print('True');
+        return true;
+      } else {
+        return false;
+      }
+    });
   }
 
   Future<void> saveDocument() async {
     if (state.action == EditFormState.ACTION_EDIT) {
       await writeToCloudFirestore();
     } else {
-      bool isOrderExist = await _isOrderExist();
+      bool isOrderExist = _isOrderExist().data.value;
       if (!isOrderExist) {
         _alterModelForSaving();
         await writeToCloudFirestore();

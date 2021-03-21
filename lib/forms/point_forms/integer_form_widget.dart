@@ -26,6 +26,7 @@ class IntegerFormWidget extends StatelessWidget {
     return Container(
       child: Row(children: [
         Text(point['label']),
+        Spacer(),
         SizedBox(
           width: 60.0,
           child: TextFormField(

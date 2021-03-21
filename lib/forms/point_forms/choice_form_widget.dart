@@ -36,6 +36,7 @@ class _ChoiceFormWidgetState extends State<ChoiceFormWidget> {
       child: Row(
         children: [
           Text(widget.point['label']),
+          Spacer(),
           widget.editable == true
               ? _createDropdownButton(widget.point, widget.variants)
               : Text(widget.point['value']),
