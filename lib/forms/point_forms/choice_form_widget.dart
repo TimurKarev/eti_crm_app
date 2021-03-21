@@ -26,7 +26,7 @@ class _ChoiceFormWidgetState extends State<ChoiceFormWidget> {
   String value;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     value = widget.point['value'];
   }
@@ -36,9 +36,9 @@ class _ChoiceFormWidgetState extends State<ChoiceFormWidget> {
       child: Row(
         children: [
           Text(widget.point['label']),
-          widget.editable == true ?
-          _createDropdownButton(widget.point, widget.variants) :
-          Text(widget.point['value']),
+          widget.editable == true
+              ? _createDropdownButton(widget.point, widget.variants)
+              : Text(widget.point['value']),
         ],
       ),
     );
@@ -58,7 +58,6 @@ class _ChoiceFormWidgetState extends State<ChoiceFormWidget> {
       menuItems.add(menuItem);
     });
     return DropdownButton(
-
       items: menuItems,
       value: value,
       onChanged: (newValue) {
@@ -66,7 +65,8 @@ class _ChoiceFormWidgetState extends State<ChoiceFormWidget> {
           value = newValue;
         });
         //print(value);
-        widget.updateModelCallback(widget.sectionIndex, widget.pointIndex, value);
+        widget.updateModelCallback(
+            widget.sectionIndex, widget.pointIndex, value);
       },
     );
   }

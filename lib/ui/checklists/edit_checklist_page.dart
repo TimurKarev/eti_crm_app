@@ -1,8 +1,8 @@
 import 'package:eti_crm_app/forms/checklist_extract_arg.dart';
-import 'package:eti_crm_app/models/const/four_point_const.dart';
 import 'package:eti_crm_app/presenters/checklist_presenter.dart';
+import 'package:eti_crm_app/providers/providers.dart';
 import 'package:eti_crm_app/ui/reusable_widgets/checklist_app_bar.dart';
-import 'package:eti_crm_app/ui/reusable_widgets/four_point_chip.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
 class EditChecklistPage extends StatefulWidget {
@@ -34,12 +34,19 @@ class _EditChecklistPageState extends State<EditChecklistPage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save),
-        onPressed: () {
-          Navigator.pushNamed(context, ChecklistExtractArg.routeName,
-              arguments: ChecklistArguments(
-                  orderNum: widget.presenter.orderNum,
-                  action: ChecklistArguments.CHECKLIST_ACTION_VIEW,
-                  type: widget.presenter.type));
+        onPressed: () async {
+          try {
+            await widget.presenter
+                .saveChecklist(context.read(cloudFirebaseServiceProvider));
+            Navigator.pushNamedAndRemoveUntil(
+                context, ChecklistExtractArg.routeName, (r) => false,
+                arguments: ChecklistArguments(
+                    orderNum: widget.presenter.orderNum,
+                    action: ChecklistArguments.CHECKLIST_ACTION_VIEW,
+                    type: widget.presenter.type));
+          } catch (e) {
+            print(e.toString());
+          }
         },
       ),
     );
@@ -51,22 +58,25 @@ class _EditChecklistPageState extends State<EditChecklistPage> {
       List<Widget> listTiles = [];
       for (var p = 0; p < widget.presenter.getPointsNumberInSection(s); p++) {
         final point = widget.presenter.getSectionPointByIndex(s, p);
-        final label = widget.presenter
-            .getPointValueByStringIndex(point['variant_index'], point['value']);
         listTiles.add(ListTile(
           title: Text(point['label']),
           subtitle: Text(point['comment']),
-          trailing: _dropdownButton(),
+          trailing: DropdownWidget(
+            pointIndex: p,
+            sectionIndex: s,
+            point: point,
+            variants: widget.presenter.model
+                .getChoiceVariantsByStringIndex(point['variant_index']),
+            updateModelCallback: _updateModel,
+          ),
         ));
       }
-      //final status = widget.presenter.model.getSectionStatusByIndex(s);
       listExpPanels.add(ExpansionPanel(
         canTapOnHeader: true,
         headerBuilder: (BuildContext context, bool isExpanded) {
           return ListTile(
             title: Text(
-              widget.presenter.getSectionLabelByIndex(s) +
-                  ' ${widget.presenter.model.getSectionStatusByIndex(s)}',
+              widget.presenter.getSectionLabelByIndex(s),
               style: Theme.of(context).textTheme.headline6,
             ),
           );
@@ -89,9 +99,43 @@ class _EditChecklistPageState extends State<EditChecklistPage> {
     );
   }
 
-  Widget _dropdownButton() {
+  void _updateModel(int sInd, int pInd, String value) {
+    widget.presenter.model.setPointValueByIndex(sInd, pInd, value);
+    print(widget.presenter.model.getSectionPointByIndex(sInd, pInd).toString());
+  }
+}
+
+class DropdownWidget extends StatefulWidget {
+  final Map<String, dynamic> point;
+  final List<dynamic> variants;
+  final int sectionIndex;
+  final int pointIndex;
+  final void Function(int, int, String) updateModelCallback;
+
+  DropdownWidget(
+      {@required this.point,
+      @required this.variants,
+      @required this.sectionIndex,
+      @required this.pointIndex,
+      @required this.updateModelCallback});
+
+  @override
+  _DropdownWidgetState createState() => _DropdownWidgetState();
+}
+
+class _DropdownWidgetState extends State<DropdownWidget> {
+  var value;
+
+  @override
+  void initState() {
+    super.initState();
+    value = widget.point['value'];
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return DropdownButton<String>(
-      value: 'One',
+      value: value,
       icon: const Icon(Icons.arrow_downward),
       iconSize: 24,
       elevation: 16,
@@ -100,12 +144,17 @@ class _EditChecklistPageState extends State<EditChecklistPage> {
         height: 2,
         color: Colors.deepPurpleAccent,
       ),
-      onChanged: (String newValue) {},
-      items: <String>['One', 'Two', 'Free', 'Four']
-          .map<DropdownMenuItem<String>>((String value) {
+      onChanged: (String newValue) {
+        setState(() {
+          value = newValue;
+          widget.updateModelCallback(
+              widget.sectionIndex, widget.pointIndex, value);
+        });
+      },
+      items: widget.variants.map<DropdownMenuItem<String>>((variant) {
         return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
+          value: variant['value'],
+          child: Text(variant['label']),
         );
       }).toList(),
     );

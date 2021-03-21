@@ -72,8 +72,7 @@ class _ViewChecklistPageState extends State<ViewChecklistPage> {
               color: FourPointValues.valueMap[status]['color'],
             ),
             title: Text(
-              widget.presenter.getSectionLabelByIndex(s) +
-                  ' ${widget.presenter.model.getSectionStatusByIndex(s)}',
+              widget.presenter.getSectionLabelByIndex(s),
               style: Theme.of(context).textTheme.headline6,
             ),
           );
