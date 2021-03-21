@@ -17,17 +17,17 @@ class DataTablePage extends ConsumerWidget {
       appBar: AppBar(
         title: Text('Список Заказов'),
         actions: <Widget>[
-          FlatButton.icon(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) {
-                    return MyPage();
-                  }),
-                );
-              },
-              icon: Icon(Icons.settings),
-              label: Text('Admin')),
+          // FlatButton.icon(
+          //     onPressed: () {
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(builder: (context) {
+          //           return MyPage();
+          //         }),
+          //       );
+          //     },
+          //     icon: Icon(Icons.settings),
+          //     label: Text('Admin')),
           FlatButton.icon(
               onPressed: () {
                 context.read(userViewModelProvider).signOut();

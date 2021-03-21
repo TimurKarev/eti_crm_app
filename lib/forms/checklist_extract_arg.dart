@@ -4,6 +4,7 @@ import 'package:eti_crm_app/services/firestore_path.dart';
 import 'package:eti_crm_app/services/security/checklist_security.dart';
 import 'package:eti_crm_app/ui/checklists/edit_checklist_page.dart';
 import 'package:eti_crm_app/ui/checklists/view_checklist_page.dart';
+import 'package:eti_crm_app/ui/reusable_widgets/access_error_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/foundation.dart';
@@ -44,21 +45,21 @@ class ChecklistExtractArg extends ConsumerWidget {
       if (ChecklistSecurityService(context.read).checkSecurityPermission(args.action)){
         return _createChecklistWhenGetViewPage(watch, args);
       } else {
-        return Text("Нехватает прав статика");
+        return AccessErrorPage();
       }
     }
     if (args.action == ChecklistArguments.CHECKLIST_ACTION_VIEW) {
       if (ChecklistSecurityService(context.read).checkSecurityPermission(args.action)){
         return _getViewChecklistPage(watch, args);
       } else {
-        return Text("Нехватает прав статика");
+        return AccessErrorPage();
       }
     }
     if (args.action == ChecklistArguments.CHECKLIST_ACTION_EDIT) {
       if (ChecklistSecurityService(context.read).checkSecurityPermission(args.action)){
         return _getEditChecklistPage(watch, args);
       } else {
-        return Text("Нехватает прав статика");
+        return AccessErrorPage();
       }
     }
     return CircularProgressIndicator();
