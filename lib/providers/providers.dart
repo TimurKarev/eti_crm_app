@@ -23,8 +23,8 @@ final cloudFirebaseServiceProvider =
     Provider<CloudFirebaseService>((ref) => CloudFirebaseService());
 
 final futureDocumentProvider =
-    FutureProvider.family<Map<String, dynamic>, String>((ref, String path) {
-  return ref.read(cloudFirebaseServiceProvider).getDocument(path: path);
+    FutureProvider.family.autoDispose<Map<String, dynamic>, String>((ref, String path) async {
+  return await ref.read(cloudFirebaseServiceProvider).getDocument(path: path);
 });
 
 final checklistTableDataStream = StreamProvider<ChecklistDataTableModel>((ref) {

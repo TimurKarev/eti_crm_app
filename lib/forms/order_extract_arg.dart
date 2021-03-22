@@ -5,6 +5,7 @@ import 'package:eti_crm_app/presenters/order_presenter.dart';
 import 'package:eti_crm_app/providers/providers.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
 import 'package:eti_crm_app/services/security/order_security.dart';
+import 'package:eti_crm_app/ui/order/create_order_page.dart';
 import 'package:eti_crm_app/ui/order/edit_order_page.dart';
 import 'package:eti_crm_app/ui/order/view_order_page.dart';
 import 'package:eti_crm_app/ui/reusable_widgets/access_error_page.dart';
@@ -32,19 +33,7 @@ class OrderExtractArg extends ConsumerWidget {
     if (args.action == OrderArguments.ACTION_CREATE_ORDER) {
       if (OrderSecurityService(context.read)
           .orderSecurityPermission(args.action)) {
-        return watch(editFormPresenterModelReadyProvider(
-                FirestorePath.order_create_form()))
-            .when(data: (_) {
-          return CreateFormParentPage(
-            nextRoute: '/',
-            editable: true,
-          );
-        }, loading: () {
-          return CircularProgressIndicator();
-        }, error: (e, _) {
-          print(e.toString());
-          return Text(e.toString());
-        });
+        return _getCreateOrderPage(watch, args);
       } else {
         return AccessErrorPage();
       }
@@ -52,7 +41,7 @@ class OrderExtractArg extends ConsumerWidget {
     if (args.action == OrderArguments.ACTION_EDIT_EXIST_ORDER) {
       if (OrderSecurityService(context.read)
           .orderSecurityPermission(args.action)) {
-        return _getEditViewOrder(watch, args);
+        return _getEditOrderPage(watch, args);
       } else {
         return AccessErrorPage();
       }
@@ -82,12 +71,27 @@ class OrderExtractArg extends ConsumerWidget {
             });
   }
 
-  Widget _getEditViewOrder(watch, OrderArguments args) {
+  Widget _getEditOrderPage(watch, OrderArguments args) {
     return watch(futureDocumentProvider(FirestorePath.order(args.orderNum)))
         .when(
             data: (data) {
               return EditOrderPage(
                 presenter: OrderPresenter(model: FormModel(model: data)),
+              );
+            },
+            loading: () => CircularProgressIndicator(),
+            error: (e, _) {
+              return Text(e.toString());
+            });
+  }
+
+  Widget _getCreateOrderPage(watch, OrderArguments args) {
+    print('_getCreateOrderPage');
+    return watch(futureDocumentProvider(FirestorePath.order_create_form()))
+        .when(
+            data: (data) {
+              return CreateOrderPage(
+                presenter: OrderPresenter(model: new FormModel(model: data)),
               );
             },
             loading: () => CircularProgressIndicator(),

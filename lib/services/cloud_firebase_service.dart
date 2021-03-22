@@ -15,6 +15,17 @@ class CloudFirebaseService {
     });
   }
 
+  Future<List<String>> getCollection({@required path}) async {
+    final orderReference = FirebaseFirestore.instance.collection(path).get();
+    return orderReference.then((value) {
+      List<String> result = [];
+      value.docs.forEach((element) {
+        result.add(element.id.toString());
+      });
+      return result;
+    });
+  }
+
   Stream<Map<String, List<String>>> collectionGroupStream(
       {@required String collectionGroup, @required String field}) {
     final Stream<QuerySnapshot> snapshots = FirebaseFirestore.instance

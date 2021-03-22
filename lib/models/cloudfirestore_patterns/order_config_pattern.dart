@@ -17,7 +17,7 @@ class OrderConfigPattern {
             'label': 'Тип подстанции',
             'index': 'substation_type',
             'type': 'choice',
-            'variants_index': 'substation_type_variants',
+            'variant_index': 'substation_type_variants',
             'value': 'bktp',
           },
         ]

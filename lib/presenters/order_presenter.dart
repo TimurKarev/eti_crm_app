@@ -32,4 +32,17 @@ class OrderPresenter {
         path: FirestorePath.order(orderNum),
         data: model.model);
   }
+
+  Future<void> createOrder(CloudFirebaseService firebase) async {
+    final orderList = await firebase.getCollection(path: FirestorePath.Orders());
+    final newOrderNum = model.firstElementValue;
+    if (orderList.contains(newOrderNum)) {
+      throw 'Данный номер заказа уже существует';
+    }
+    print("order NUM  " + newOrderNum);
+    model.model['order'] = newOrderNum;
+    model.model['headers']['substation_type'] = model.getSectionPointByIndex(0, 1)['value'];
+    model.model['sections'].removeAt(0);
+    await firebase.setDocument(path: FirestorePath.order(newOrderNum), data: model.model);
+  }
 }
