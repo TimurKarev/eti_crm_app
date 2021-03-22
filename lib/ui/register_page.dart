@@ -48,6 +48,7 @@ class RegistrationPage extends StatelessWidget {
               ),
             ),
             TextField(
+              obscureText: true,
               controller: _passwordController,
               decoration: InputDecoration(
                 labelText: 'Пароль',

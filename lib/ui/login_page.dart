@@ -46,6 +46,7 @@ class LoginPage extends ConsumerWidget {
               ),
             ),
             TextField(
+              obscureText: true,
               controller: _passwordController,
               decoration: InputDecoration(
                 labelText: 'Пароль',
