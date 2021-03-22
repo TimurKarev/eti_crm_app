@@ -1,7 +1,11 @@
 import 'package:eti_crm_app/forms/create_form_parent_page.dart';
 import 'package:eti_crm_app/forms/edit_form_presenter.dart';
+import 'package:eti_crm_app/forms/form_model.dart';
+import 'package:eti_crm_app/presenters/order_presenter.dart';
+import 'package:eti_crm_app/providers/providers.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
 import 'package:eti_crm_app/services/security/order_security.dart';
+import 'package:eti_crm_app/ui/order/view_order_page.dart';
 import 'package:eti_crm_app/ui/reusable_widgets/access_error_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -69,25 +73,27 @@ class OrderExtractArg extends ConsumerWidget {
     if (args.action == OrderArguments.ACTION_VIEW_EXIST_ORDER) {
       if (OrderSecurityService(context.read)
           .orderSecurityPermission(args.action)) {
-        return watch(editFormPresenterModelReadyProvider(
-            FirestorePath.order(args.orderNum)))
-            .when(data: (_) {
-          return CreateFormParentPage(
-              nextRoute: OrderExtractArg.routeName,
-              args: OrderArguments(
-                  action: OrderArguments.ACTION_EDIT_EXIST_ORDER,
-                  orderNum: args.orderNum),
-              editable: false);
-        }, loading: () {
-          return CircularProgressIndicator();
-        }, error: (e, _) {
-          print(e.toString());
-          return Text(e.toString());
-        });
+        return _getViewOrderPage(watch, args);
       } else {
         return AccessErrorPage();
       }
     }
     return Container();
+  }
+
+  Widget _getViewOrderPage(ScopedReader watch, OrderArguments args) {
+    return watch(futureDocumentProvider(FirestorePath.order(args.orderNum)))
+        .when(
+            data: (data) {
+              return ViewOrderPage(
+                presenter: OrderPresenter(
+                  model: FormModel(model: data)
+                ),
+              );
+            },
+            loading: () => CircularProgressIndicator(),
+            error: (e, _) {
+              return Text(e.toString());
+            });
   }
 }
