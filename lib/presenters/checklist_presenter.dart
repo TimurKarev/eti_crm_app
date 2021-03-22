@@ -1,6 +1,7 @@
 import 'package:eti_crm_app/forms/form_model.dart';
 import 'package:eti_crm_app/services/cloud_firebase_service.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
+import 'package:flutter/src/widgets/editable_text.dart';
 
 class ChecklistPresenter {
   FormModel model;
@@ -54,5 +55,9 @@ class ChecklistPresenter {
     await firebase.setDocument(
         path: FirestorePath.checklist(orderNum: orderNum, type: type),
         data: model.model);
+  }
+
+  void updateCommentByIndex(int s, int p, String value) {
+    model.setPointCommentByIndex(s, p, value);
   }
 }

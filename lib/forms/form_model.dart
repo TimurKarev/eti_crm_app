@@ -37,6 +37,12 @@ class FormModel {
     model['sections'][indSec]['points'][indPoint]['value'] = value;
   }
 
+  void setPointCommentByIndex(int indSec, int indPoint, String value) {
+    try {
+      model['sections'][indSec]['points'][indPoint]['comment'] = value;
+    } finally {}
+  }
+
   List<dynamic> getChoiceVariantsByStringIndex(String pointIndex) {
     List<dynamic> result = [];
     final List<dynamic> config = model['config'];

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 class EditChecklistPage extends StatefulWidget {
   final ChecklistPresenter presenter;
+  final TextEditingController commentController = TextEditingController();
 
   EditChecklistPage({Key key, this.presenter}) : super(key: key);
 
@@ -27,7 +28,7 @@ class _EditChecklistPageState extends State<EditChecklistPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ChecklistAppBar(titleText: 'widget.presenter.barTitle'),
+      appBar: ChecklistAppBar(titleText: 'Редактирование чеклиста заказ №${widget.presenter.orderNum}'),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
         child:
@@ -61,7 +62,10 @@ class _EditChecklistPageState extends State<EditChecklistPage> {
         final point = widget.presenter.getSectionPointByIndex(s, p);
         listTiles.add(ListTile(
           title: Text(point['label']),
-          subtitle: Text(point['comment']),
+          subtitle: TextFormField(
+//            controller: widget.commentController,
+            onChanged: (value) => widget.presenter.updateCommentByIndex(s,p,value),
+          ),//Text(point['comment']),
           trailing: DropdownWidget(
             pointIndex: p,
             sectionIndex: s,
