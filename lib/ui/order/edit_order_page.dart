@@ -1,24 +1,28 @@
+import 'package:eti_crm_app/providers/providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:eti_crm_app/forms/order_extract_arg.dart';
+import 'package:eti_crm_app/forms/point_forms/integer_form_widget.dart';
 import 'package:eti_crm_app/presenters/order_presenter.dart';
 import 'package:eti_crm_app/ui/reusable_widgets/checklist_app_bar.dart';
 import 'package:flutter/material.dart';
 
-class ViewOrderPage extends StatelessWidget {
+class EditOrderPage extends StatelessWidget {
   final OrderPresenter presenter;
 
-  const ViewOrderPage({Key key, @required this.presenter}) : super(key: key);
+  const EditOrderPage({Key key, @required this.presenter}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ChecklistAppBar(titleText: 'Заказ №${presenter.orderNum}'),
+      appBar: ChecklistAppBar(titleText: 'Редактирование заказа №${presenter.orderNum}'),
       body: _getOrderBody(context),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.edit),
+        child: Icon(Icons.save),
         onPressed: () async {
-          await Navigator.pushNamed(context, OrderExtractArg.routeName,
+          await presenter.saveOrder(context.read(cloudFirebaseServiceProvider));
+          await Navigator.pushNamedAndRemoveUntil(context, OrderExtractArg.routeName, (r)=>false,
               arguments: OrderArguments(
-                  action: OrderArguments.ACTION_EDIT_EXIST_ORDER,
+                  action: OrderArguments.ACTION_VIEW_EXIST_ORDER,
                   orderNum: presenter.orderNum));
         },
       ),
@@ -27,7 +31,7 @@ class ViewOrderPage extends StatelessWidget {
 
   Widget _getOrderBody(BuildContext context) {
     final Widget title = Text(
-      'Заказ N${presenter.orderNum}',
+      'Редактирование заказа N${presenter.orderNum}',
       style: Theme.of(context).textTheme.headline5,
     );
     List<Widget> result = [];
@@ -53,14 +57,22 @@ class ViewOrderPage extends StatelessWidget {
       );
       for (var p = 0; p < presenter.getPointsNumberInSection(s); p++) {
         final point = presenter.getSectionPointByIndex(s, p);
-
+        Widget value;
+        if (point['type'] == 'integer') {
+          value = IntegerFormWidget(
+            point: point,
+            pointIndex: p,
+            sectionIndex: s,
+            updateModelCallback: presenter.model.setPointValueByIndex,
+          );
+        }
         final row = Padding(
           padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
           child: Row(
             children: [
               Text(point['label']),
               Spacer(),
-              Text(point['value']),
+              value,
             ],
           ),
         );

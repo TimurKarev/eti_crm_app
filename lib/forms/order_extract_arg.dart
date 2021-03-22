@@ -5,6 +5,7 @@ import 'package:eti_crm_app/presenters/order_presenter.dart';
 import 'package:eti_crm_app/providers/providers.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
 import 'package:eti_crm_app/services/security/order_security.dart';
+import 'package:eti_crm_app/ui/order/edit_order_page.dart';
 import 'package:eti_crm_app/ui/order/view_order_page.dart';
 import 'package:eti_crm_app/ui/reusable_widgets/access_error_page.dart';
 import 'package:flutter/material.dart';
@@ -51,21 +52,7 @@ class OrderExtractArg extends ConsumerWidget {
     if (args.action == OrderArguments.ACTION_EDIT_EXIST_ORDER) {
       if (OrderSecurityService(context.read)
           .orderSecurityPermission(args.action)) {
-        return watch(editFormPresenterModelReadyProvider(
-                FirestorePath.order(args.orderNum)))
-            .when(data: (_) {
-          return CreateFormParentPage(
-              nextRoute: OrderExtractArg.routeName,
-              args: OrderArguments(
-                  action: OrderArguments.ACTION_VIEW_EXIST_ORDER,
-                  orderNum: args.orderNum),
-              editable: true);
-        }, loading: () {
-          return CircularProgressIndicator();
-        }, error: (e, _) {
-          print(e.toString());
-          return Text(e.toString());
-        });
+        return _getEditViewOrder(watch, args);
       } else {
         return AccessErrorPage();
       }
@@ -86,9 +73,21 @@ class OrderExtractArg extends ConsumerWidget {
         .when(
             data: (data) {
               return ViewOrderPage(
-                presenter: OrderPresenter(
-                  model: FormModel(model: data)
-                ),
+                presenter: OrderPresenter(model: FormModel(model: data)),
+              );
+            },
+            loading: () => CircularProgressIndicator(),
+            error: (e, _) {
+              return Text(e.toString());
+            });
+  }
+
+  Widget _getEditViewOrder(watch, OrderArguments args) {
+    return watch(futureDocumentProvider(FirestorePath.order(args.orderNum)))
+        .when(
+            data: (data) {
+              return EditOrderPage(
+                presenter: OrderPresenter(model: FormModel(model: data)),
               );
             },
             loading: () => CircularProgressIndicator(),

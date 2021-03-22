@@ -27,9 +27,9 @@ class OrderPresenter {
   String getPointValueByStringIndex(String pointIndex, String value) =>
       model.getChoiceLabelByPointIndexAndValue(pointIndex, value);
 
-  Future<void> saveChecklist(CloudFirebaseService firebase) async {
+  Future<void> saveOrder(CloudFirebaseService firebase) async {
     await firebase.setDocument(
-        path: FirestorePath.checklist(orderNum: orderNum, type: type),
+        path: FirestorePath.order(orderNum),
         data: model.model);
   }
 }

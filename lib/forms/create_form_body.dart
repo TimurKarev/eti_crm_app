@@ -46,7 +46,7 @@ class CreateFormBody extends ConsumerWidget {
               point: point,
               sectionIndex: sIndex,
               pointIndex: pIndex,
-              editable: editable,
+             // editable: editable,
               updateModelCallback: presenter.update));
         }
         if (point['type'] == 'choice') {
