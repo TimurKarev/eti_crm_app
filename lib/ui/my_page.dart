@@ -27,30 +27,36 @@ class _MyPageState extends State<MyPage> {
           )
         ],
       ),
-      // body: Column(
-      //   children: [
-      //     userViewModel.userModel.roles.isEmpty
-      //         ? Container()
-      //         : Text('${userViewModel.userModel.roles.toString()}'),
-      //     TextButton(
-      //       onPressed: () {
-      //         _setDocument(context);
-      //       },
-      //       child: Text('setDocument'),
-      //     ),
-      //   ],
-      // ),
-      body: SingleChildScrollView(child: Container(child: _buildPanel())),
+      body: Column(
+        children: [
+          userViewModel.userModel.roles.isEmpty
+              ? Container()
+              : Text('${userViewModel.userModel.roles.toString()}'),
+          TextButton(
+            onPressed: () {
+              _setDocument(context);
+            },
+            child: Text('setDocument'),
+          ),
+        ],
+      ),
+     // body: SingleChildScrollView(child: Container(child: _buildPanel())),
     );
   }
 
   void _setDocument(BuildContext context) async {
-    // context.read(cloudFirebaseServiceProvider).setData(
-    //     path: FirestorePath.order_create_form(),
-    //     data: OrderConfigPattern.orderConfig);
-    context.read(cloudFirebaseServiceProvider).setData(
-        path: FirestorePath.checklist_pattern('bm_checklist'),
-        data: OrderConfigPattern.bmChecklistConfig);
+    try {
+      await context.read(cloudFirebaseServiceProvider).setData(
+          path: FirestorePath.order_create_form(),
+          data: OrderConfigPattern.orderConfig);
+      print('Set document');
+
+      await context.read(cloudFirebaseServiceProvider).setData(
+          path: FirestorePath.checklist_pattern('bm_checklist'),
+          data: OrderConfigPattern.bmChecklistConfig);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   Widget _buildPanel() {

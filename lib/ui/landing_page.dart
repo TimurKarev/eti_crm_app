@@ -16,6 +16,9 @@ class LandingPage extends ConsumerWidget {
           return DataTablePage();
         },
         loading: () => CircularProgressIndicator(),
-        error: (e, _) => Text('${e.toString()}'));
+        error: (e, _) {
+          print(e.toString());
+          return Text('${e.toString()}');
+        });
   }
 }

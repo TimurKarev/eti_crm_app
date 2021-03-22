@@ -1,5 +1,5 @@
 import 'package:eti_crm_app/forms/checklist_extract_arg.dart';
-import 'package:eti_crm_app/forms/edit_form_extract_arg.dart';
+import 'package:eti_crm_app/forms/order_extract_arg.dart';
 import 'package:eti_crm_app/ui/landing_page.dart';
 import 'package:eti_crm_app/ui/order_page.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LandingPage(),
         '/order-detail': (context) => OrderPage(),
-        EditFormExtractArg.routeName: (context) => EditFormExtractArg(),
+        OrderExtractArg.routeName: (context) => OrderExtractArg(),
         ChecklistExtractArg.routeName: (context) => ChecklistExtractArg(),
       },
 //      home: LandingPage(),

@@ -1,11 +1,10 @@
 import 'package:eti_crm_app/models/check_list_data_table_model.dart';
-import 'package:eti_crm_app/forms/edit_form_extract_arg.dart';
+import 'package:eti_crm_app/forms/order_extract_arg.dart';
 import 'package:eti_crm_app/providers/providers.dart';
+import 'package:eti_crm_app/ui/my_page.dart';
 import 'package:eti_crm_app/ui/reusable_widgets/cell_buttons_data_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../my_page.dart';
 
 class DataTablePage extends ConsumerWidget {
   @override
@@ -17,17 +16,17 @@ class DataTablePage extends ConsumerWidget {
       appBar: AppBar(
         title: Text('Список Заказов'),
         actions: <Widget>[
-          // FlatButton.icon(
-          //     onPressed: () {
-          //       Navigator.push(
-          //         context,
-          //         MaterialPageRoute(builder: (context) {
-          //           return MyPage();
-          //         }),
-          //       );
-          //     },
-          //     icon: Icon(Icons.settings),
-          //     label: Text('Admin')),
+          FlatButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return MyPage();
+                  }),
+                );
+              },
+              icon: Icon(Icons.settings),
+              label: Text('Admin')),
           FlatButton.icon(
               onPressed: () {
                 context.read(userViewModelProvider).signOut();
@@ -45,9 +44,9 @@ class DataTablePage extends ConsumerWidget {
       ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, EditFormExtractArg.routeName,
-              arguments: EditFormArguments(
-                  action: EditFormArguments.ACTION_CREATE_ORDER));
+          Navigator.pushNamed(context, OrderExtractArg.routeName,
+              arguments: OrderArguments(
+                  action: OrderArguments.ACTION_CREATE_ORDER));
         },
         child: Icon(Icons.add),
         tooltip: 'Создать новый заказ',

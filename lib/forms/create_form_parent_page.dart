@@ -1,5 +1,5 @@
 import 'package:eti_crm_app/forms/create_form_body.dart';
-import 'package:eti_crm_app/forms/edit_form_extract_arg.dart';
+import 'package:eti_crm_app/forms/order_extract_arg.dart';
 import 'package:eti_crm_app/forms/edit_form_presenter.dart';
 import 'package:eti_crm_app/ui/reusable_widgets/checklist_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CreateFormParentPage extends StatelessWidget {
   final String nextRoute;
-  final EditFormArguments args;
+  final OrderArguments args;
   final bool editable;
   CreateFormParentPage({@required this.nextRoute, this.args, this.editable: false});
   @override
