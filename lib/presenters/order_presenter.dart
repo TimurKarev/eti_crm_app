@@ -7,7 +7,11 @@ class OrderPresenter {
 
   OrderPresenter({this.model});
 
-  String get orderNum => model.model['order']; //TODO: refactor model
+  String get orderNum {
+    return model.model['order'] == null
+        ? model.firstElementValue
+        : model.model['order'];
+  }
 
   String get type => model.model['type']; //TODO: refactor model
 
@@ -29,20 +33,22 @@ class OrderPresenter {
 
   Future<void> saveOrder(CloudFirebaseService firebase) async {
     await firebase.setDocument(
-        path: FirestorePath.order(orderNum),
-        data: model.model);
+        path: FirestorePath.order(orderNum), data: model.model);
   }
 
   Future<void> createOrder(CloudFirebaseService firebase) async {
-    final orderList = await firebase.getCollection(path: FirestorePath.Orders());
+    final orderList =
+        await firebase.getCollection(path: FirestorePath.Orders());
     final newOrderNum = model.firstElementValue;
     if (orderList.contains(newOrderNum)) {
       throw 'Данный номер заказа уже существует';
     }
     print("order NUM  " + newOrderNum);
     model.model['order'] = newOrderNum;
-    model.model['headers']['substation_type'] = model.getSectionPointByIndex(0, 1)['value'];
+    model.model['headers']['substation_type'] =
+        model.getSectionPointByIndex(0, 1)['value'];
     model.model['sections'].removeAt(0);
-    await firebase.setDocument(path: FirestorePath.order(newOrderNum), data: model.model);
+    await firebase.setDocument(
+        path: FirestorePath.order(newOrderNum), data: model.model);
   }
 }

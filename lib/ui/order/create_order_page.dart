@@ -23,7 +23,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ChecklistAppBar(titleText: 'Новый заказ'),
-      body: _getOrderBody(context),
+      body: SingleChildScrollView(child: _getOrderBody(context)),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save),
         onPressed: () async {
@@ -34,7 +34,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                 context, OrderExtractArg.routeName, (r) => false,
                 arguments: OrderArguments(
                     action: OrderArguments.ACTION_VIEW_EXIST_ORDER,
-                    orderNum: widget.presenter.model.firstElementValue));
+                    orderNum: widget.presenter.orderNum));
           } catch (e, _) {
             print(e.toString());
             setState(() {
@@ -129,7 +129,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
       result.add(card);
     }
     return Padding(
-      padding: const EdgeInsets.fromLTRB(500.0, 10.0, 500.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(250.0, 10.0, 250.0, 0.0),
       child: Center(
         child: Column(
           children: result,

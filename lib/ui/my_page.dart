@@ -46,14 +46,23 @@ class _MyPageState extends State<MyPage> {
 
   void _setDocument(BuildContext context) async {
     try {
-      await context.read(cloudFirebaseServiceProvider).setData(
-          path: FirestorePath.order_create_form(),
-          data: OrderConfigPattern.orderConfig);
-      print('Set document');
+
+      // await context.read(cloudFirebaseServiceProvider).setData(
+      //     path: FirestorePath.order_create_form(),
+      //     data: OrderConfigPattern.orderConfig);
+      //
+      // // await context.read(cloudFirebaseServiceProvider).setData(
+      // //     path: FirestorePath.checklist_pattern('bm_checklist'),
+      // //     data: OrderConfigPattern.bmChecklistConfig);
+      //
+      // await context.read(cloudFirebaseServiceProvider).setData(
+      //     path: FirestorePath.checklist_pattern('el_checklist'),
+      //     data: OrderConfigPattern.elChecklistConfig);
 
       await context.read(cloudFirebaseServiceProvider).setData(
-          path: FirestorePath.checklist_pattern('bm_checklist'),
-          data: OrderConfigPattern.bmChecklistConfig);
+          path: FirestorePath.checklist_pattern('doc_checklist'),
+          data: OrderConfigPattern.docChecklistConfig);
+
     } catch (e) {
       print(e.toString());
     }

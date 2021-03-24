@@ -15,7 +15,7 @@ class EditOrderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ChecklistAppBar(titleText: 'Редактирование заказа №${presenter.orderNum}'),
-      body: _getOrderBody(context),
+      body: SingleChildScrollView(child: _getOrderBody(context)),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save),
         onPressed: () async {
@@ -86,7 +86,7 @@ class EditOrderPage extends StatelessWidget {
       result.add(card);
     }
     return Padding(
-      padding: const EdgeInsets.fromLTRB(500.0, 10.0, 500.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(250.0, 10.0, 250.0, 0.0),
       child: Center(
         child: Column(
           children: result,

@@ -1,7 +1,7 @@
 import 'package:eti_crm_app/forms/form_model.dart';
 import 'package:eti_crm_app/services/cloud_firebase_service.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
-import 'package:flutter/src/widgets/editable_text.dart';
+
 
 class ChecklistPresenter {
   FormModel model;

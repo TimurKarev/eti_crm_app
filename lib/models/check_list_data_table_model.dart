@@ -4,13 +4,13 @@ class ChecklistDataTableModel {
     "Заказ",
     "Стройка",
     "Электрика",
-    "Телемеханика",
+    "Документация",
     "Лаборатория"
   ];
   final List<String> columnIndexes = [
     "bm_checklist",
     "el_checklist",
-    "tm_checklist",
+    "doc_checklist",
     "lab_checklist"
   ];
   List<List<DataTableCellModel>> rows = [];

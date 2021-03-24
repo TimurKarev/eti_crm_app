@@ -87,13 +87,17 @@ class FormModel {
     for (var s = 0; s < sectionsNumber; s++) {
       for (var p = 0; p < getPointsNumberInSection(s); p++) {
         final point = getSectionPointByIndex(s, p);
-        //print(point.toString());
         if (point.containsKey('index')) {
           try {
-            var value = int.parse(point['value']);
-            dict[point['index']] = value;
+            if ((point['index'] == 'kso_num') && (int.parse(point['value']) >= 1)) {
+              dict['is_kso'] = 1;
+              dict['kso_num'] = int.parse(point['value']);
+            } else {
+              var value = int.parse(point['value']);
+              dict[point['index']] = value;
+            }
           } catch (e) {
-            dict[point['index']] = 1;
+            dict[point['index']] = 0;
           }
         }
       }
@@ -127,7 +131,7 @@ class FormModel {
       if (index == null) {
         newSections.add(section);
       } else {
-        final int sectionQuantity = dict[index] ?? 1;
+        final int sectionQuantity = dict[index] ?? 0;
         final label = section['label'];
         for (var i = 0; i < sectionQuantity; i++) {
           final n = sectionQuantity > 1 ? ' N${i + 1}' : '';
@@ -146,6 +150,11 @@ class FormModel {
   }
 
   String _getChecklistTitle(String order, String type) {
-    return 'Чеклист строительной части №$order';
+    if (type == 'bm_checklist')
+      return 'Чеклист строительной части. Заказ №$order';
+    if (type == 'el_checklist')
+      return 'Чеклист электрики. Заказ №$order';
+    if (type == 'doc_checklist')
+      return 'Чеклист документации. Заказ №$order';
   }
 }

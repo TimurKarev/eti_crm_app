@@ -39,6 +39,132 @@ class OrderConfigPattern {
           },
         ],
       },
+      {
+        'label': 'Электрическая часть',
+        'points': [
+          {
+            'label': 'Количество силовых трансформаторов',
+            'index': 'power_transformer_num',
+            'type': 'integer',
+            'value': '2',
+          },
+          {
+            'label': 'Количество RM6',
+            'index': 'rm6_num',
+            'type': 'integer',
+            'value': '4',
+          },
+          {
+            'label': 'Количество УВР',
+            'index': 'uvr_num',
+            'type': 'integer',
+            'value': '2',
+          },
+          {
+            'label': 'Количество объединенных ШСН',
+            'index': 'unite_hsn_num',
+            'type': 'integer',
+            'value': '2',
+          },
+          {
+            'label': 'Количество ШУ',
+            'index': 'hy_num',
+            'type': 'integer',
+            'value': '2',
+          },
+          {
+            'label': 'Количество ШТМ',
+            'index': 'htm_num',
+            'type': 'integer',
+            'value': '1',
+          },
+          {
+            'label': 'Количество ТН (бктп)',
+            'index': 'tn_num',
+            'type': 'integer',
+            'value': '',
+          },
+          {
+            'label': 'Количество ППКУОП',
+            'index': 'ppkyop_num',
+            'type': 'integer',
+            'value': '1',
+          },
+          {
+            'label': 'Количество ШВ',
+            'index': 'hv_num',
+            'type': 'integer',
+            'value': '1',
+          },
+
+          {
+            'label': 'Количество КСО',
+            'index': 'kso_num',
+            'type': 'integer',
+            'value': '',
+          },
+          {
+            'label': 'Количество ШСН',
+            'index': 'hsn_num',
+            'type': 'integer',
+            'value': '',
+          },
+          {
+            'label': 'Количество ШЗС',
+            'index': 'hzs_num',
+            'type': 'integer',
+            'value': '',
+          },
+          {
+            'label': 'Количество ШПД',
+            'index': 'hpd_num',
+            'type': 'integer',
+            'value': '',
+          },
+          {
+            'label': 'Количество ШОС',
+            'index': 'hos_num',
+            'type': 'integer',
+            'value': '',
+          },
+          {
+            'label': 'Количество ШОЗС',
+            'index': 'hozs_num',
+            'type': 'integer',
+            'value': '',
+          },
+          {
+            'label': 'Количество ШТЗ',
+            'index': 'htz_num',
+            'type': 'integer',
+            'value': '',
+          },
+          {
+            'label': 'Количество ШБП',
+            'index': 'hbp_num',
+            'type': 'integer',
+            'value': '',
+          },
+          {
+            'label': 'Количество ШБПЗОС',
+            'index': 'hbpzos_num',
+            'type': 'integer',
+            'value': '',
+          },
+          {
+            'label': 'Количество ШУАВР',
+            'index': 'hyavr_num',
+            'type': 'integer',
+            'value': '',
+          },
+          {
+            'label': 'Количество Шкафов дуговой защиты',
+            'index': 'hdz_num',
+            'type': 'integer',
+            'value': '',
+          },
+        ],
+      },
     ],
     'config': [
       {
@@ -449,6 +575,39 @@ class OrderConfigPattern {
           },
         ]
       },
+      {
+        "label": "СИЗ и ЗИП",
+        "points": [
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Комплектация ЗИП"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Ведомость ЗИП"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Комплектация СИЗ"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Ведомость СИЗ"
+          },
+        ]
+      },
     ],
     'config': [
       {
@@ -611,6 +770,40 @@ class OrderConfigPattern {
         ]
       },
       {
+        "label": "RM6",
+        'order_config_index': 'rm6_num',
+        "points": [
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Соответствие опросным листам"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Сверка со схемами"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Комплектность"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Отсутствие механических повреждений"
+          },
+        ]
+      },
+      {
         "label": "Проверка УВР",
         'order_config_index': 'uvr_num',
         "points": [
@@ -725,6 +918,1070 @@ class OrderConfigPattern {
             "type": "choice",
             'value': 'unchecked',
             "label": "Наличие пломбировочных крышек"
+          },
+        ]
+      },
+      {
+        "label": "Совмещенный ШСН",
+        'order_config_index': 'unite_hsn_num',
+        "points": [
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Визуальный контроль корпуса"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Проверка геометрии"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Качество окраски"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Тольщина ЛКП"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность сборки шкафного оборудования"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка болтовых соединений"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие электрической схемы"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие заземляющих проводников"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка заземляющих проводников"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Номиналы автоматических выключателей"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие бирок"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Маркировка проводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность монтажа"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Укладка проводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наименование установленного оборудования"
+          },
+        ]
+      },
+      {
+        "label": "Проверка ШУ",
+        'order_config_index': 'hy_num',
+        "points": [
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Визуальный контроль корпуса"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Проверка геометрии"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Качество окраски"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Тольщина ЛКП"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность сборки шкафного оборудования"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка болтовых соединений"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие электрической схемы"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие заземляющих проводников"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка заземляющих проводников"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Номиналы автоматических выключателей"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие бирок"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Маркировка проводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность монтажа"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Укладка проводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наименование установленного оборудования"
+          },
+        ]
+      },
+      {
+        "label": "ШМТМ",
+        'order_config_index': 'htm_num',
+        "points": [
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Визуальный контроль корпуса"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Проверка геометрии"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Качество окраски"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Тольщина ЛКП"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность сборки шкафного оборудования"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка болтовых соединений"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие электрической схемы"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие заземляющих проводников"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка заземляющих проводников"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Номиналы автоматических выключателей"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие бирок"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Маркировка проводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность монтажа"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Укладка проводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наименование установленного оборудования"
+          },
+        ]
+      },
+      {
+        "label": "ШКТМ",
+        'order_config_index': 'htm_num',
+        "points": [
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Визуальный контроль корпуса"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Проверка геометрии"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Качество окраски"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Тольщина ЛКП"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность сборки шкафного оборудования"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка болтовых соединений"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие электрической схемы"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие заземляющих проводников"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка заземляющих проводников"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Номиналы автоматических выключателей"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие бирок"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Маркировка проводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность монтажа"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Укладка проводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наименование установленного оборудования"
+          },
+        ]
+      },
+      {
+        "label": "ТН бктп",
+        'order_config_index': 'tn_num',
+        "points": [
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Сверка схемы"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность сборки камер со схемой"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Проверка трансформаторов тока"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Работоспособность комутационных аппаратов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка болтовых соединений"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Сечение шин"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Целостность шин"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Расстояние фаза-корпус"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Маркировка шин"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Фазировка шин"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Установка ограничителей перенапряжения"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "установка магистральных изоляторов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Целостность магистральных изоляторов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Качество термоусадки на тягах приводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Регулировка проводов"
+          },
+        ]
+      },
+      {
+        "label": "ППКУОП",
+        'order_config_index': 'ppkyop_num',
+        "points": [
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Визуальный контроль корпуса"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Проверка геометрии"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Качество окраски"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Тольщина ЛКП"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность сборки шкафного оборудования"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка болтовых соединений"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие электрической схемы"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие заземляющих проводников"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка заземляющих проводников"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Номиналы автоматических выключателей"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие бирок"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Маркировка проводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность монтажа"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Укладка проводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наименование установленного оборудования"
+          },
+        ]
+      },
+      {
+        "label": "ШВ",
+        'order_config_index': 'hv_num',
+        "points": [
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Визуальный контроль корпуса"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Проверка геометрии"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Качество окраски"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Тольщина ЛКП"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность сборки шкафного оборудования"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка болтовых соединений"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие электрической схемы"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие заземляющих проводников"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка заземляющих проводников"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Номиналы автоматических выключателей"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие бирок"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Маркировка проводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность монтажа"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Укладка проводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наименование установленного оборудования"
+          },
+        ]
+      },
+
+      {
+        "label": "КРУ общие",
+        'order_config_index': 'is_kso',
+        "points": [
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Соответствие размещенной схеме"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Соответствие оборудования"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Соответствие комплектующих"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Контактные присоединения"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие пломб"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Поверки"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Заземляющие проводники"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка заземляющих проводников"
+          },
+
+        ]
+      },
+      {
+        "label": "КСО",
+        'order_config_index': 'kso_num',
+        "points": [
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Сверка схемы"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность сборки камер со схемой"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Проверка трансформаторов тока"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Работоспособность комутационных аппаратов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка болтовых соединений"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Сечение шин"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Целостность шин"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Расстояние фаза-корпус"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Маркировка шин"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Фазировка шин"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Установка ограничителей перенапряжения"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "установка магистральных изоляторов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Целостность магистральных изоляторов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Качество термоусадки на тягах приводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Регулировка проводов"
+          },
+        ]
+      },
+
+      {
+        "label": "Проверка ШУАВР",
+        'order_config_index': 'hyavr_num',
+        "points": [
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Визуальный контроль корпуса"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Проверка геометрии"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Качество окраски"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Тольщина ЛКП"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность сборки шкафного оборудования"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка болтовых соединений"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие электрической схемы"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие заземляющих проводников"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка заземляющих проводников"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Номиналы автоматических выключателей"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие бирок"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Маркировка проводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность монтажа"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Укладка проводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наименование установленного оборудования"
           },
         ]
       },
@@ -951,8 +2208,8 @@ class OrderConfigPattern {
         ]
       },
       {
-        "label": "Проверка ШАВР",
-        'order_config_index': 'havr_num',
+        "label": "Проверка ШПД",
+        'order_config_index': 'hpd_num',
         "points": [
           {
             'variant_index': 'four_choice_variants',
@@ -1062,8 +2319,8 @@ class OrderConfigPattern {
         ]
       },
       {
-        "label": "Совмещенный ШСН",
-        'order_config_index': 'hsn_num',
+        "label": "Проверка ШОС",
+        'order_config_index': 'hos_num',
         "points": [
           {
             'variant_index': 'four_choice_variants',
@@ -1173,8 +2430,8 @@ class OrderConfigPattern {
         ]
       },
       {
-        "label": "ШТМ",
-        'order_config_index': 'htm_num',
+        "label": "Проверка ШОЗС",
+        'order_config_index': 'hozs_num',
         "points": [
           {
             'variant_index': 'four_choice_variants',
@@ -1506,8 +2763,8 @@ class OrderConfigPattern {
         ]
       },
       {
-        "label": "Проверка ШБПЗОИС",
-        'order_config_index': 'hbpzois_num',
+        "label": "Проверка ШБПЗОС",
+        'order_config_index': 'hbpzos_num',
         "points": [
           {
             'variant_index': 'four_choice_variants',
@@ -1616,6 +2873,118 @@ class OrderConfigPattern {
           },
         ]
       },
+      {
+        "label": "Шкаф Дуговой Защиты",
+        'order_config_index': 'hdz_num',
+        "points": [
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Визуальный контроль корпуса"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Проверка геометрии"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Качество окраски"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Тольщина ЛКП"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность сборки шкафного оборудования"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка болтовых соединений"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие электрической схемы"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие заземляющих проводников"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Протяжка заземляющих проводников"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Номиналы автоматических выключателей"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наличие бирок"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Маркировка проводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Правильность монтажа"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Укладка проводов"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Наименование установленного оборудования"
+          },
+        ]
+      },
+
       {
         "label": "Проверки монтажа",
         "points": [
@@ -1780,211 +3149,203 @@ class OrderConfigPattern {
         ]
       },
       {
-        "label": "КРУ общие",
-        'order_config_index': 'is_kso',
+        "label": "СИЗ и ЗИП",
         "points": [
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Соответствие размещенной схеме"
+            "label": "Комплектация ЗИП"
           },
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Соответствие оборудования"
+            "label": "Ведомость ЗИП"
           },
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Соответствие комплектующих"
+            "label": "Комплектация СИЗ"
           },
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Контактные присоединения"
+            "label": "Ведомость СИЗ"
           },
-          {
-            'variant_index': 'four_choice_variants',
-            'comment': '',
-            "type": "choice",
-            'value': 'unchecked',
-            "label": "Наличие пломб"
-          },
-          {
-            'variant_index': 'four_choice_variants',
-            'comment': '',
-            "type": "choice",
-            'value': 'unchecked',
-            "label": "Поверки"
-          },
-          {
-            'variant_index': 'four_choice_variants',
-            'comment': '',
-            "type": "choice",
-            'value': 'unchecked',
-            "label": "Заземляющие проводники"
-          },
-          {
-            'variant_index': 'four_choice_variants',
-            'comment': '',
-            "type": "choice",
-            'value': 'unchecked',
-            "label": "Протяжка заземляющих проводников"
-          },
-
         ]
       },
+    ],
+    'config': [
       {
-        "label": "Размеры верхнего модуля",
-        'order_config_index': 'building_top_module_num',
+        'choice_variants': {
+          'four_choice_variants': [
+            {'label': 'Не проверенно', 'value': 'unchecked'},
+            {'label': 'Не используется', 'value': 'not_used'},
+            {'label': 'Замечания', 'value': 'comment'},
+            {'label': 'Принято', 'value': 'approved'},
+          ],
+        },
+      }
+    ],
+  };
+  static const docChecklistConfig = {
+    'headers': {
+      'title': 'Шаблон для постпродакшн чеклиста',
+    },
+    'sections': [
+      {
+        "label": "Изготовление паспорта",
         "points": [
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Линейные размеры"
+            "label": "Сбор технической документации",
           },
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
+            "label": "Изготовление паспорта",
             'value': 'unchecked',
-            "label": "Диагональные размеры"
           },
         ]
       },
       {
-        "label": "Проходные отверстия верхнего модуля",
-        'order_config_index': 'building_top_module_num',
+        "label": "Исполнительная документация",
         "points": [
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Для контура заземлений"
+            "label": "Сборка исполнительной документации"
           },
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Для вводов кабелей"
+            "label": "Реестр готовой продукции"
           },
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Для прокладки межблочный соединений"
+            "label": "Копирование на электронные носители"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Передача ИД заказчику"
           },
         ]
       },
       {
-        "label": "Отделочные работы",
+        "label": "Пусконаладочные работы",
         "points": [
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Вторичные отделочные работы"
+            "label": "Согласование работ"
           },
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Малярные работы"
-          },
-          {
-            'variant_index': 'four_choice_variants',
-            'comment': '',
-            "type": "choice",
-            'value': 'unchecked',
-            "label": "Штукатурные работы"
-          },
-          {
-            'variant_index': 'four_choice_variants',
-            'comment': '',
-            "type": "choice",
-            'value': 'unchecked',
-            "label": "Цветовая гамма фасада"
-          },
-          {
-            'variant_index': 'four_choice_variants',
-            'comment': '',
-            "type": "choice",
-            'value': 'unchecked',
-            "label": "Шумоизоляция"
+            "label": "Составление рекламаций"
           },
         ]
       },
       {
-        "label": "Навесное оборудование",
+        "label": "Упаковка и консервация",
         "points": [
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Соответствие с АСЧ и чертежами"
+            "label": "Комплектность"
           },
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Проверка надписей"
+            "label": "Упаковка"
           },
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Паспорные таблички на дверях"
+            "label": "Консервация"
           },
         ]
       },
       {
-        "label": "Контур заземления",
+        "label": "Сдача заказчику",
         "points": [
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Наличие контура"
+            "label": "Согласование сроков"
           },
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Проверка сварочных швов"
+            "label": "Составление актов"
           },
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Покраска контура заземления"
+            "label": "Передача продукции"
           },
           {
             'variant_index': 'four_choice_variants',
             'comment': '',
             "type": "choice",
             'value': 'unchecked',
-            "label": "Наличие переносного заземления"
+            "label": "Подписание актов у заказчика"
+          },
+        ]
+      },
+      {
+        "label": "Шеф монтаж",
+        "points": [
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Шефмонтажные работы"
+          },
+          {
+            'variant_index': 'four_choice_variants',
+            'comment': '',
+            "type": "choice",
+            'value': 'unchecked',
+            "label": "Передача работ заказчику"
           },
         ]
       },

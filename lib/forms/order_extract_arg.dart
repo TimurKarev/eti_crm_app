@@ -86,7 +86,7 @@ class OrderExtractArg extends ConsumerWidget {
   }
 
   Widget _getCreateOrderPage(watch, OrderArguments args) {
-    print('_getCreateOrderPage');
+
     return watch(futureDocumentProvider(FirestorePath.order_create_form()))
         .when(
             data: (data) {
