@@ -29,7 +29,7 @@ class OrderExtractArg extends ConsumerWidget {
   Widget build(BuildContext context, watch) {
     final OrderArguments args = ModalRoute.of(context).settings.arguments;
 
-    try {
+    // try {
       if (args.action == OrderArguments.ACTION_CREATE_ORDER) {
         if (OrderSecurityService(context.read)
             .orderSecurityPermission(args.action)) {
@@ -54,10 +54,10 @@ class OrderExtractArg extends ConsumerWidget {
           return AccessErrorPage();
         }
       }
-    } catch (e) {
-      print(e.toString());
-    }
-    return DataTablePage();
+    // } on NoSuchMethodError catch (e) {
+    //   print(e.toString());
+    // }
+    return CircularProgressIndicator();
   }
 
   Widget _getViewOrderPage(ScopedReader watch, OrderArguments args) {
