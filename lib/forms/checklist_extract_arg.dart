@@ -43,7 +43,7 @@ class ChecklistExtractArg extends ConsumerWidget {
 
     final ChecklistArguments args = ModalRoute.of(context).settings.arguments;
 
-    // try {
+    try {
       if (args.action == ChecklistArguments.CHECKLIST_ACTION_CREATE) {
         if (ChecklistSecurityService(context.read).checkSecurityPermission(args.action)){
           return _createChecklistWhenGetViewPage(watch, args);
@@ -65,10 +65,10 @@ class ChecklistExtractArg extends ConsumerWidget {
           return AccessErrorPage();
         }
       }
-    // } catch (e) {
-    //   print(e.toString());
-    //   //Navigator.pushNamedAndRemoveUntil(context, '/', (r) => false);
-    // }
+    } catch (e) {
+      print(e.toString());
+      //Navigator.pushNamedAndRemoveUntil(context, '/', (r) => false);
+    }
     return DataTablePage();
   }
 

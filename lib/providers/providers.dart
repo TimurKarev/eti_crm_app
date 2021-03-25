@@ -10,7 +10,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final checklistServiceProvider =
     Provider<ChecklistService>((ref) => ChecklistService(ref.read));
 
-
 final userViewModelProvider = Provider<UserViewModel>((ref) {
   return UserViewModel(ref: ref);
 });
@@ -22,8 +21,11 @@ final userModelStreamProvider = StreamProvider<UserModel>((ref) {
 final cloudFirebaseServiceProvider =
     Provider<CloudFirebaseService>((ref) => CloudFirebaseService());
 
+final $providerAutodisposeFamily = FutureProvider.autoDispose.family;
+
 final futureDocumentProvider =
-    FutureProvider.family.autoDispose<Map<String, dynamic>, String>((ref, String path) async {
+    $providerAutodisposeFamily<Map<String, dynamic>, String>(
+        (ref, String path) async {
   return await ref.read(cloudFirebaseServiceProvider).getDocument(path: path);
 });
 

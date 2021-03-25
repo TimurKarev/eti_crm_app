@@ -29,7 +29,7 @@ class OrderExtractArg extends ConsumerWidget {
   Widget build(BuildContext context, watch) {
     final OrderArguments args = ModalRoute.of(context).settings.arguments;
 
-    // try {
+    try {
       if (args.action == OrderArguments.ACTION_CREATE_ORDER) {
         if (OrderSecurityService(context.read)
             .orderSecurityPermission(args.action)) {
@@ -54,18 +54,20 @@ class OrderExtractArg extends ConsumerWidget {
           return AccessErrorPage();
         }
       }
-    // } on NoSuchMethodError catch (e) {
-    //   print(e.toString());
-    // }
+    } on NoSuchMethodError catch (e) {
+      print(e.toString());
+    }
     return DataTablePage();
   }
 
   Widget _getViewOrderPage(ScopedReader watch, OrderArguments args) {
+    //return DataTablePage();
     return watch(futureDocumentProvider(FirestorePath.order(args.orderNum)))
         .when(
             data: (data) {
+              //return DataTablePage();
               return ViewOrderPage(
-                presenter: OrderPresenter(model: FormModel(model: data)),
+                presenter: OrderPresenter(model: new FormModel(model: data)),
               );
             },
             loading: () => CircularProgressIndicator(),
@@ -79,7 +81,7 @@ class OrderExtractArg extends ConsumerWidget {
         .when(
             data: (data) {
               return EditOrderPage(
-                presenter: OrderPresenter(model: FormModel(model: data)),
+                presenter: OrderPresenter(model: new FormModel(model: data)),
               );
             },
             loading: () => CircularProgressIndicator(),
