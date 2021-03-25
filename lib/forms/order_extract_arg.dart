@@ -57,7 +57,7 @@ class OrderExtractArg extends ConsumerWidget {
     // } on NoSuchMethodError catch (e) {
     //   print(e.toString());
     // }
-    return CircularProgressIndicator();
+    return DataTablePage();
   }
 
   Widget _getViewOrderPage(ScopedReader watch, OrderArguments args) {
