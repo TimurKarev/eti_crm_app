@@ -11,7 +11,7 @@ class OrderConfigPattern {
             'label': 'Номер Заказа',
             'index': 'order_number',
             'type': 'integer',
-            'value': '0',
+            'value': '',
           },
           {
             'label': 'Тип подстанции',
