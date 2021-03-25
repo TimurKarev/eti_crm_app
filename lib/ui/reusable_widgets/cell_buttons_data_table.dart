@@ -43,11 +43,14 @@ class DataTableTextButton extends StatelessWidget {
                   orderNum: cell.order));
         }
         if (cell.action == DataTableCellModel.ACTION_CREATE_CHECKLIST) {
-          Navigator.pushNamed(context, ChecklistExtractArg.routeName,
-              arguments: ChecklistArguments(
-                  action: ChecklistArguments.CHECKLIST_ACTION_CREATE,
-                  type: cell.element,
-                  orderNum: cell.order));
+          //TODO: remove if then ready
+          if (cell.element != 'lab_checklist') {
+            Navigator.pushNamed(context, ChecklistExtractArg.routeName,
+                arguments: ChecklistArguments(
+                    action: ChecklistArguments.CHECKLIST_ACTION_CREATE,
+                    type: cell.element,
+                    orderNum: cell.order));
+          }
         }
         if (cell.action == DataTableCellModel.ACTION_VIEW_CHECKLIST) {
           Navigator.pushNamed(context, ChecklistExtractArg.routeName,

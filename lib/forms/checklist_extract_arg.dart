@@ -2,6 +2,7 @@ import 'package:eti_crm_app/presenters/checklist_presenter.dart';
 import 'package:eti_crm_app/providers/providers.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
 import 'package:eti_crm_app/services/security/checklist_security.dart';
+import 'package:eti_crm_app/ui/checklists/data_table_page.dart';
 import 'package:eti_crm_app/ui/checklists/edit_checklist_page.dart';
 import 'package:eti_crm_app/ui/checklists/view_checklist_page.dart';
 import 'package:eti_crm_app/ui/reusable_widgets/access_error_page.dart';
@@ -39,30 +40,36 @@ class ChecklistExtractArg extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+
     final ChecklistArguments args = ModalRoute.of(context).settings.arguments;
 
-    if (args.action == ChecklistArguments.CHECKLIST_ACTION_CREATE) {
-      if (ChecklistSecurityService(context.read).checkSecurityPermission(args.action)){
-        return _createChecklistWhenGetViewPage(watch, args);
-      } else {
-        return AccessErrorPage();
+    try {
+      if (args.action == ChecklistArguments.CHECKLIST_ACTION_CREATE) {
+        if (ChecklistSecurityService(context.read).checkSecurityPermission(args.action)){
+          return _createChecklistWhenGetViewPage(watch, args);
+        } else {
+          return AccessErrorPage();
+        }
       }
-    }
-    if (args.action == ChecklistArguments.CHECKLIST_ACTION_VIEW) {
-      if (ChecklistSecurityService(context.read).checkSecurityPermission(args.action)){
-        return _getViewChecklistPage(watch, args);
-      } else {
-        return AccessErrorPage();
+      if (args.action == ChecklistArguments.CHECKLIST_ACTION_VIEW) {
+        if (ChecklistSecurityService(context.read).checkSecurityPermission(args.action)){
+          return _getViewChecklistPage(watch, args);
+        } else {
+          return AccessErrorPage();
+        }
       }
-    }
-    if (args.action == ChecklistArguments.CHECKLIST_ACTION_EDIT) {
-      if (ChecklistSecurityService(context.read).checkSecurityPermission(args.action)){
-        return _getEditChecklistPage(watch, args);
-      } else {
-        return AccessErrorPage();
+      if (args.action == ChecklistArguments.CHECKLIST_ACTION_EDIT) {
+        if (ChecklistSecurityService(context.read).checkSecurityPermission(args.action)){
+          return _getEditChecklistPage(watch, args);
+        } else {
+          return AccessErrorPage();
+        }
       }
+    } catch (e) {
+      print(e.toString());
+      //Navigator.pushNamedAndRemoveUntil(context, '/', (r) => false);
     }
-    return CircularProgressIndicator();
+    return DataTablePage();
   }
 
   Widget _createChecklistWhenGetViewPage(ScopedReader watch, ChecklistArguments args) {

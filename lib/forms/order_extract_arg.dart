@@ -5,6 +5,7 @@ import 'package:eti_crm_app/presenters/order_presenter.dart';
 import 'package:eti_crm_app/providers/providers.dart';
 import 'package:eti_crm_app/services/firestore_path.dart';
 import 'package:eti_crm_app/services/security/order_security.dart';
+import 'package:eti_crm_app/ui/checklists/data_table_page.dart';
 import 'package:eti_crm_app/ui/order/create_order_page.dart';
 import 'package:eti_crm_app/ui/order/edit_order_page.dart';
 import 'package:eti_crm_app/ui/order/view_order_page.dart';
@@ -30,31 +31,35 @@ class OrderExtractArg extends ConsumerWidget {
   Widget build(BuildContext context, watch) {
     final OrderArguments args = ModalRoute.of(context).settings.arguments;
 
-    if (args.action == OrderArguments.ACTION_CREATE_ORDER) {
-      if (OrderSecurityService(context.read)
-          .orderSecurityPermission(args.action)) {
-        return _getCreateOrderPage(watch, args);
-      } else {
-        return AccessErrorPage();
+    try {
+      if (args.action == OrderArguments.ACTION_CREATE_ORDER) {
+        if (OrderSecurityService(context.read)
+            .orderSecurityPermission(args.action)) {
+          return _getCreateOrderPage(watch, args);
+        } else {
+          return AccessErrorPage();
+        }
       }
-    }
-    if (args.action == OrderArguments.ACTION_EDIT_EXIST_ORDER) {
-      if (OrderSecurityService(context.read)
-          .orderSecurityPermission(args.action)) {
-        return _getEditOrderPage(watch, args);
-      } else {
-        return AccessErrorPage();
+      if (args.action == OrderArguments.ACTION_EDIT_EXIST_ORDER) {
+        if (OrderSecurityService(context.read)
+            .orderSecurityPermission(args.action)) {
+          return _getEditOrderPage(watch, args);
+        } else {
+          return AccessErrorPage();
+        }
       }
-    }
-    if (args.action == OrderArguments.ACTION_VIEW_EXIST_ORDER) {
-      if (OrderSecurityService(context.read)
-          .orderSecurityPermission(args.action)) {
-        return _getViewOrderPage(watch, args);
-      } else {
-        return AccessErrorPage();
+      if (args.action == OrderArguments.ACTION_VIEW_EXIST_ORDER) {
+        if (OrderSecurityService(context.read)
+            .orderSecurityPermission(args.action)) {
+          return _getViewOrderPage(watch, args);
+        } else {
+          return AccessErrorPage();
+        }
       }
+    } catch (e) {
+      print(e.toString());
     }
-    return Container();
+    return DataTablePage();
   }
 
   Widget _getViewOrderPage(ScopedReader watch, OrderArguments args) {
