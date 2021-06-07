@@ -13,7 +13,7 @@ class DataTablePage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Список Заказов ???'),
+        title: Text('Список заказов'),
         actions: <Widget>[
           // FlatButton.icon(
           //     onPressed: () {
@@ -34,13 +34,15 @@ class DataTablePage extends ConsumerWidget {
               label: Text('Выйти')),
         ],
       ),
-      body: Column(children: [
-        dataTableData.when(
-            data: (data) => _getDataTable(data),
-            loading: () => CircularProgressIndicator(),
-            error: (e, s) => Text(e.toString() + s.toString())),
-        false ? Text('Пустой чеклиск') : Container(),
-      ]),
+      body: SingleChildScrollView(
+        child: Column(children: [
+          dataTableData.when(
+              data: (data) => _getDataTable(data),
+              loading: () => CircularProgressIndicator(),
+              error: (e, s) => Text(e.toString() + s.toString())),
+          false ? Text('Пустой чеклиск') : Container(),
+        ]),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushNamed(context, OrderExtractArg.routeName,
@@ -54,8 +56,6 @@ class DataTablePage extends ConsumerWidget {
   }
 
   _getDataTable(ChecklistDataTableModel model) {
-    return SingleChildScrollView(
-      child: CellButtonDataTable(model: model),
-    );
+    return CellButtonDataTable(model: model);
   }
 }

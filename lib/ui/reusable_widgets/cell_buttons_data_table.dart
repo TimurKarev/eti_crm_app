@@ -36,11 +36,15 @@ class DataTableTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        if (cell.action == DataTableCellModel.ACTION_VIEW_ORDER) {
-          Navigator.pushNamed(context, OrderExtractArg.routeName,
-              arguments: OrderArguments(
-                  action: OrderArguments.ACTION_VIEW_EXIST_ORDER,
-                  orderNum: cell.order));
+        try {
+          if (cell.action == DataTableCellModel.ACTION_VIEW_ORDER) {
+            Navigator.pushNamed(context, OrderExtractArg.routeName,
+                arguments: OrderArguments(
+                    action: OrderArguments.ACTION_VIEW_EXIST_ORDER,
+                    orderNum: cell.order));
+          }
+        } catch (e) {
+
         }
         if (cell.action == DataTableCellModel.ACTION_CREATE_CHECKLIST) {
           //TODO: remove if then ready

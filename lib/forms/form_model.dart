@@ -156,5 +156,6 @@ class FormModel {
       return 'Чеклист электрики. Заказ №$order';
     if (type == 'doc_checklist')
       return 'Чеклист документации. Заказ №$order';
+    return null;
   }
 }
